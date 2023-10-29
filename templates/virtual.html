@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+
+
+{% block title %}
+  Virtual Tour
+{% endblock %}
+
+{% block content %}
+
+
+    <h1 class="text-black text-2xl font-semibold m-5">Projects
+        <span>
+            <p class="text-zinc-500 text-xl font-normal">Active</p>
+        </span>
+        <h1 class=" mx-5">Projects Created <span class="font-bold">{{ project_count }}</span></h1>
+    </h1>
+
+   
+    <!-- <div class="flex justify-start items-center flex-wrap max-w-[1000px] mx-5 space-x-5">
+        <div class="w-60 h-40 rounded-2xl shadow-md flex items-center justify-center">
+            <a href="{% url 'create-project' %}">
+                <button class="flex text-indigo-700 font-semibold flex-col items-center">
+                    <svg class="" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.7908 33.6278V15.6449H25.2198V33.6278H22.7908ZM15.0067 25.8438V23.429H33.0039V25.8438H15.0067Z" fill="#5030E5"/>
+                        <circle cx="24" cy="24" r="22" stroke="#5030E5" stroke-width="4"/>
+                    </svg>
+                    Add a Project
+                </button>
+            </a>
+        </div>
+        {% for project in projects %}
+        <div class="w-60 h-40 rounded-2xl shadow-md relative">
+            <img src="{% static 'img/Auswahl.jpg' %}" alt="{{ project.project_name }}" class="w-full h-full object-cover rounded-2xl">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-xs font-semibold bg-indigo-700 bg-opacity-60 rounded-2xl">
+                {{ project.project_name }}
+               <br> {{project.created_at}}
+               <br> {{project.user}}
+            </div>
+            <div>
+                {{project.date}}
+            </div>
+        </div>
+        {% endfor %}
+    </div> -->
+
+
+
+    
+    
+
+    
+
+
+
+    <div class="max-w-[1050px] mx-5 flex items-center justify-center">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    
+            <!-- Your "Add a Project" button here -->
+            <div class="w-60 h-40 rounded-2xl shadow-md flex items-center justify-center flex-col">
+                <a href="{% url 'create-project' %}" class="transition-transform transform hover:scale-105">
+                    <button class="flex text-indigo-700 font-semibold flex-col items-center">
+                        <svg class="" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.7908 33.6278V15.6449H25.2198V33.6278H22.7908ZM15.0067 25.8438V23.429H33.0039V25.8438H15.0067Z" fill="#5030E5" />
+                            <circle cx="24" cy="24" r="22" stroke="#5030E5" stroke-width="4" />
+                        </svg>
+                        Add a Project
+                    </button>
+                </a>
+            </div>
+    
+            {% for project in projects %}
+            <!-- Create a parent container for the project card and "Edit" link -->
+            <div class="relative bg-white shadow-md rounded-lg p-4 hover:bg-zinc-50 transition-transform transform hover:scale-105">
+                <a href="{% url 'project_detail' project.slug %}">
+                    <img class="w-full h-36 object-cover rounded-md mb-2" src="{% static 'img/Auswahl.jpg' %}" alt="Project Image">
+                    <h2 class="text-lg font-semibold text-indigo-600">{{ project.project_name }}</h2>
+                    <p class="text-xs text-gray-700">Project Size: {{ project.project_size }}</p>
+                    <p class="text-xs text-gray-700">Project Address: {{ project.project_address }}</p>
+                    <p class="text-xs text-gray-700">Add Members: {{ project.add_members }}</p>
+                    <p class="text-xs text-gray-700">Group: {{ project.group }}</p>
+                    <p class="text-xs text-gray-700">Project Manager: {{ project.project_manager }}</p>
+                    <p class="text-xs text-gray-700">Date: {{ project.date }}</p>
+                    <p class="text-xs text-gray-700">Created at: {{ project.created_at|date:"Y-m-d" }}</p>
+                </a>
+                
+                <!-- "Edit" link with absolute positioning -->
+                <a href="{% url 'edit_project' project.slug %}" class=" text-xs text-indigo-600 hover:text-indigo-800">Edit</a>
+                <a href="{% url 'virtual_tour' project.slug %}" class="bg-indigo-600 text-white p-2 rounded-md mt-2 block hover:bg-indigo-700 text-center">Go to Virtual Tour</a>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+
+{% endblock %}
+

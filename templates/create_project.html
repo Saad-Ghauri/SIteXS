@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  Create a Project
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<!-- <div class="bg-white shadow-md w-[600px]  px-5 py-3 rounded-xl mx-auto">
+
+    <div class="w-[500px] mx-auto mt-8 text-sm">
+        <form method="post" action="{% url 'create-project' %}" class="">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+          <div class="mb-4">
+            <label for="project_name" class="text-indigo-600 font-semibold block mb-1">Project Name</label>
+            <input type="text" id="project_name" name="project_name" class="w-full shadow-md px-4 py-2 border rounded-lg">
+          </div>
+          <div class="mb-4">
+            <label for="project_size" class="text-indigo-600 font-semibold block mb-1">Project Size</label>
+            <input type="text" id="project_size" name="project_size" class="w-full shadow-md  px-4 py-2 border rounded-lg">
+          </div>
+          <div class="mb-4">
+            <label for="project_address" class="text-indigo-600 font-semibold block mb-1">Project Address</label>
+            <input type="text" id="project_address" name="project_address" class="w-full shadow-md  px-4 py-2 border rounded-lg">
+          </div>
+          <div class="mb-4">
+            <label for="add_members" class="text-indigo-600 font-semibold block mb-1">Add Members</label>
+            <input type="text" id="add_members" name="add_members" class="w-full shadow-md  px-4 py-2 border rounded-lg">
+          </div>
+          <div class="mb-4">
+            <label for="group" class="text-indigo-600 font-semibold block mb-1">Group</label>
+            <input type="text" id="group" name="group" class="w-full shadow-md  px-4 py-2 border rounded-lg">
+          </div>
+          <div class="mb-4">
+            <label for="project_manager" class="text-indigo-600 font-semibold block mb-1">Project Manager</label>
+            <input type="text" id="project_manager" name="project_manager" class="w-full shadow-md  px-4 py-2 border rounded-lg">
+          </div>
+          <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Submit</button>
+        </form>
+      </div>
+    </div> -->
+    <!-- <form method="post" class="flex items-center">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit Task</button>
+  </form> -->
+  <div class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
+    <div class="bg-white shadow-md w-80 px-4 py-2 rounded-lg flex justify-center items-center">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-2">
+              <label for="project_name" class="text-indigo-600 font-semibold block mb-1">Project Name</label>
+              <input type="text" id="project_name" name="project_name" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Project Name">
+              {% if form.errors.project_name %}
+                  <div class="text-red-500 text-xs">{{ form.errors.project_name.0 }}</div>
+              {% endif %}
+          </div>
+
+            <div class="flex flex-col">
+              <label for="project_size" class="text-indigo-600 font-semibold mb-1">Project Size</label>
+              <input type="text" id="project_size" name="project_size" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Project Size">
+          </div>
+        
+          <div class="flex flex-col">
+              <label for="project_address" class="text-indigo-600 font-semibold mb-1">Project Address</label>
+              <input type="text" id="project_address" name="project_address" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Project Address">
+          </div>
+        
+          <div class="flex flex-col">
+              <label for="add_members" class="text-indigo-600 font-semibold mb-1">Add Members</label>
+              <input type="text" id="add_members" name="add_members" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Add Members">
+          </div>
+        
+          <div class="flex flex-col">
+              <label for="group" class="text-indigo-600 font-semibold mb-1">Group</label>
+              <input type="text" id="group" name="group" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Group">
+          </div>
+        
+          <div class="flex flex-col">
+              <label for="project_manager" class="text-indigo-600 font-semibold mb-1">Project Manager</label>
+              <input type="text" id="project_manager" name="project_manager" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Project Manager">
+          </div>
+        
+          <div class="flex flex-col">
+              <label for="date" class="text-indigo-600 font-semibold mb-1">Date</label>
+              <input type="text" id="date" name="date" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="yyyy-mm-dd">
+              {% if form.errors %}
+                  <div class="text-red-500 text-xs">{{ form.errors.date }}</div>
+              {% endif %}
+            </div>
+
+            <div class="flex justify-between text-xs mt-4">
+                <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Create</button>
+                <a href="{% url 'virtual' %}"><button type="button" class="bg-neutral-400 text-white py-2 px-4 rounded-lg ml-2 hover:bg-indigo-700" onclick="closeModal()">Cancel</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Your other content goes here -->
+
+<script>
+    // JavaScript function to show the modal
+    function openModal() {
+        document.querySelector(".bg-opacity-50").style.display = "block";
+    }
+
+    // JavaScript function to close the modal
+    function closeModal() {
+        document.querySelector(".bg-opacity-50").style.display = "none";
+    }
+</script>
+
+
+{% endblock %}
+
+
+<!-- <form method="post" class="flex items-center space-x-3">
+  {% csrf_token %}
+
+  <div class="flex flex-col">
+      <label for="project_name" class="text-indigo-600 font-semibold mb-1">Project Name</label>
+      <input type="text" id="project_name" name="project_name" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="Project Name">
+  </div>
+
+  
+
+  <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Submit Task</button>
+</form> -->

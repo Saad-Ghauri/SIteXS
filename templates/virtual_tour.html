@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual tour</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <style>
+        .content-container {
+          position: relative;
+          z-index: 1; /* Ensures content appears above A-Frame */
+        }
+        .z-container {
+          position: relative;
+          z-index: 1; /* Ensures content appears above A-Frame */
+        }
+
+
+        /* CSS */
+        .markup {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #FF0000; /* Red outline, adjust the color as needed */
+  border-radius: 50%; /* Creates a circle; adjust for other shapes */
+}
+
+
+
+        .markup-box {
+    width: 100px; /* Set the width of the markup box */
+    height: 60px; /* Set the height of the markup box */
+    border: 2px solid #ff5733; /* Set the border (outline) */
+    text-align: center;
+    padding: 10px;
+    color: #ff5733; /* Set the outline color */
+    background-color: transparent; /* Set the background color to transparent */
+  }
+      </style>
+      
+
+</head>
+<body>
+    <div class="container content-container z-container ">
+
+
+
+        <div class="flex items-center justify-between p-3 bg-opacity-40 bg-indigo-700 text-white z-container">
+            <a href="{% url 'create-tasks' %}"><button>Create a Task</button></a>
+            <button id="prev-button" class="mr-2 p-2 border rounded-md" onclick="changeImage(-1)">Previous</button>
+            <h1 class="text-2xl">{{ project.project_name }}</h1>
+            <button id="next-button" class="mr-2 p-2 border rounded-md" onclick="changeImage(1)">Next</button>
+            <a href="{% url 'virtual' %}"><button class="mr-2 p-2 border rounded-md">Back to Dashboard</button></a>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="flex items-center">
+                    <input type="file" name="360_image" accept="image/*" class="mr-2 p-2 border rounded-md" />
+                    <button type="submit" class="bg-indigo-700 text-white px-4 py-2 rounded-md hover:bg-indigo-800">Upload Image</button>
+                </div>
+            </form>
+            <button id="toggleSidebar" class=" bg-white text-gray-800 p-2 rounded-lg shadow-md z-10">O</button>
+            <div class="flex space-x-2 items-center"><img class="max-w-[30px]" src="{% static 'icons/user.png' %}" alt="" srcset=""><h1 class="font-semibold">{{ user.username }}</h1></div>
+    
+        </div>
+
+
+
+           
+            
+            
+    </div>
+    
+    
+    
+    
+
+
+
+  
+
+
+    <a-scene class="">
+        <a-sky id="panorama-image" src="{% if images %}{{ images.0.image.url }}{% endif %}"></a-sky>
+    </a-scene>
+    <script>
+        const hotspotElement = document.getElementById('hotspot1');
+        const panorama_Scene = document.querySelector('a-scene');
+    
+        // Define the position of the hotspot
+        const position = { yaw: Math.PI / 4, pitch: Math.PI / 8 };
+    
+        // Add a click event listener to the hotspot
+        hotspotElement.addEventListener('click', function () {
+            // Define the action to perform when the hotspot is clicked
+            switchScene(findSceneById(hotspot.target));
+        });
+    
+        // Create the hotspot
+        panorama_Scene.hotspotContainer().createHotspot(hotspotElement, position);
+    </script>
+
+    <script>
+        var images = [
+            {% for image in images %}
+                "{{ image.image.url }}",
+            {% endfor %}
+        ];
+    
+        var currentIndex = 0;
+        var panoramaImage = document.getElementById("panorama-image");
+        
+        document.getElementById("next-button").addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            panoramaImage.setAttribute("src", images[currentIndex]);
+        });
+    
+        document.getElementById("prev-button").addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            panoramaImage.setAttribute("src", images[currentIndex]);
+        });
+    </script>
+    
+    
+
+    
+      
+
+
+
+    <script>
+        const toggleButton = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+    
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
+
+
+
+
+
+
+<!-- Add this JavaScript code at the end of your HTML -->
+<script>
+    const createHotspotButton = document.getElementById('create-hotspot-button');
+    const iconContainer = document.getElementById('icon-container');
+    const displayedIcon = document.getElementById('displayed-icon');
+    const panoramaScene = document.querySelector('a-scene');
+    
+    let isCreatingHotspot = false;
+
+    createHotspotButton.addEventListener('click', () => {
+        isCreatingHotspot = !isCreatingHotspot;
+
+        if (isCreatingHotspot) {
+            // Allow hotspot creation on scene click
+            panoramaScene.addEventListener('click', createHotspot);
+        } else {
+            // Stop hotspot creation on scene click
+            panoramaScene.removeEventListener('click', createHotspot);
+        }
+    });
+
+    function createHotspot(event) {
+        const x = event.detail.intersection.point.x;
+        const y = event.detail.intersection.point.y;
+        const z = event.detail.intersection.point.z;
+
+        // Create a new hotspot as an a-sphere element at the clicked position
+        const newHotspot = document.createElement('a-sphere');
+        newHotspot.setAttribute('class', 'hotspot');
+        newHotspot.setAttribute('position', `${x} ${y} ${z}`);
+        newHotspot.setAttribute('radius', '0.1');
+        newHotspot.setAttribute('color', 'red');
+        newHotspot.setAttribute('cursor-listener', '');
+
+        // Add the new hotspot to the scene
+        panoramaScene.appendChild(newHotspot);
+    }
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+

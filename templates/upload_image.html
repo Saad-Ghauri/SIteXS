@@ -1,0 +1,12 @@
+{% extends "base.html" %}  {# Use a base template if you have one, or just start with a simple HTML template. #}
+
+{% block content %}
+  <h2>Upload an Image</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+
+    <input type="submit" value="Upload Image">
+  </form>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  Overview
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-black text-2xl font-semibold m-5">Hello {{ user.username }}
+    <span>
+        <p class="text-zinc-500 text-xl font-normal">Here is your daily report</p>
+    </span>
+</h1>
+    
+    <h1 class="text-black text-2xl font-semibold m-5">Overview</h1>
+
+<!-- the big flex main content card flex starts here -->
+<div class="flex justify-between px-3 items-baseline space-x-16 flex-wrap"> 
+
+    <!-- first card overview starts -->
+<div class="h-52 w-72 rounded-2xl  shadow-lg  font-['Plus Jakarta Sans']">
+    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+
+    <div class="flex justify-between">
+        <div class="m-4 text-black text-xl font-semibold">Tasks <h1 class="text-5xl font-bold">{{ task_count }}</h1></div>
+        
+       <div> <svg class="m-4" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.3701 8.87988H17.6201" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.37988 8.87988L7.12988 9.62988L9.37988 7.37988" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.3701 15.8799H17.6201" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.37988 15.8799L7.12988 16.6299L9.37988 14.3799" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+</div>
+    <div class="flex-col flex items-start mx-5 ">
+        
+
+
+        <div><div class="w-[188px] h-[7px] relative">
+            <div class="w-[188px] h-[7px] left-0 top-0 absolute bg-slate-300 rounded-[31px]"></div>
+            <div class="w-[133px] h-[7px] left-0 top-0 absolute bg-violet-600 rounded-[31px]"></div>
+        </div></div>
+        <h3>Finished Tasks</h3>
+    </div>
+    
+            
+      
+
+
+
+
+</div>
+<!-- the first card overview ends -->
+
+
+<!-- the second card starts here  -->
+<div class="w-[300px] h-52  rounded-2xl shadow-lg">
+    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+
+    <div class="flex justify-between">
+        <div class="m-4 text-black text-xl font-semibold">Activity</div>
+        
+     <div> 
+        <h1 class="text-xs font-normal m-4">This Week</h1>
+    </div>
+
+</div>
+<!-- the second card ends here -->
+
+
+
+
+
+
+      
+</div>
+
+
+
+
+
+
+
+
+
+<!-- the second card ends here -->
+
+
+
+
+
+
+    
+ 
+
+
+ 
+<div class="w-[300px] h-fit py-3  rounded-2xl shadow-lg ">
+    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+
+   <h1 class="m-5 text-gray-900 text-sm font-light font-['Inter'] leading-[21px]">Task Today
+    <img src="Image.jpg" alt="" srcset="">
+   </h1>
+   <h1 class="mx-5 flex justify-between items-center">Checking “Remove trash”
+    <div>
+        <img src="🦆 icon _virtual reality image thin_.svg" alt="" srcset="">
+    </div>
+</h1>
+   <h1 class="mx-5 text-xs">Tiler, Electrican</h1>
+
+   <div class="flex justify-between items-center m-5">
+    <h1 class="w-[100px] h-5 text-gray-900 text-base font-semibold ">Detail Task</h1>
+    <h1 class="text-xs">Tiler, Electrican</h1>
+   </div>
+
+
+   <ul class="space-y-3 mx-5  mt-10 font-bold text-base">
+
+    <li class=" flex justify-start items-center space-x-2 text-sm font-semibold" ><div class="bg-gray-300 rounded-lg flex px-3 py-1 ">1</div><h2>Remove Package Cables</h2></li>
+    <li class=" flex justify-start items-center space-x-2 text-sm font-semibold" ><div class="bg-gray-300 rounded-lg flex px-3 py-1 ">2</div><h2>Remove Package Tiles</h2></li>
+   
+    
+   </ul>
+
+   <div class="mt-5 flex justify-center items-center "><button class=" bg-indigo-400 px-20 py-2 rounded-lg font-semibold text-white">Go To Detail</button></div>
+</div>
+
+
+
+
+
+
+
+  
+
+
+</div>
+<!-- the big flex main content card flex ends here -->
+
+
+{% endblock %}
+
+
+
+{% block recent %}
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  
+  <div class="flex justify-between">
+    <div class="w-1/2 h-screen bg-white h-full flex justify-center items-center">
+      
+      <form method="post" class="flex flex-col  items-start w-min mx-auto mt-4 p-4 bg-white shadow-md rounded">
+      
+        {% csrf_token %}
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {{ form.email.label_tag }}
+      {{ form.email }}
+      {{ form.password1.label_tag }}
+      {{ form.password1 }}
+      {{ form.password2.label_tag }}
+      {{ form.password2 }}
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:ring-2 focus:ring-blue-200 focus:outline-none w-full mt-4">Register</button>
+  </form></div>
+
+  <div class="w-1/2 h-screen bg-indigo-600 h-full">2</div>
+  </div>
+  
+
+</body>
+</html>

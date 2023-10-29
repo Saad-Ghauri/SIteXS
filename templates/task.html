@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  Tasks
+{% endblock %}
+
+
+{% block content %}
+
+    <h1 class="text-black text-2xl font-semibold p-5">TASKMANAGEMENT
+        <span>
+            <p class="text-zinc-500 text-xl font-normal">Open</p>
+        </span>
+    </h1>
+
+
+    <a class="m-5 " href="{% url 'create-tasks' %}">
+        <button class="transition-transform transform hover:scale-105 p-4 hover:bg-indigo-600 hover:text-white bg-indigo-400 rounded-lg">Create a task </button>
+    </a>
+
+   
+        <table class="table text-sm  w-[990px] ml-10 border-separate  ">
+            <thead class="  ">
+                <tr class=" font-bold ">
+                    <th class="py-3 border-b border-slate-400"></th>
+                    <th class="py-3 border-b border-slate-400">Task Name</th>
+                    <th class="py-3 border-b border-slate-400">Description</th>
+                    <th class="py-3 border-b border-slate-400">Floor</th>
+                    <th class="py-3 border-b border-slate-400">Room</th>
+                    <th class="py-3 border-b border-slate-400">Due Date</th>
+                    <th class="py-3 border-b border-slate-400">Priority</th>
+                    <th class="py-3 border-b border-slate-400">Assigned</th>
+                    <th class="py-3 border-b border-slate-400">Virtual Tour</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr class="shadow-xl bg-white hover:bg-indigo-600 hover:text-white text-center">
+                        <!-- <td class="text-xs">{{ task.created_at }}</td> -->
+                        <td class="p-2">{{ forloop.counter }}.</td>
+                        <td class="p-2">{{ task.name }}</td>
+                        <td class="p-2">{{ task.description }}</td>
+                        <td class="p-2">{{ task.floor }}</td>
+                        <td class="p-2">{{ task.room }}</td>
+                        <td class="p-2">{{ task.due_date }}</td>
+                        <td class="p-2">{{ task.priority }}</td>
+                        <td class="p-2">{{ task.assigned }}</td>
+                        <td class="p-2"><a href="">{{ task.virtual_tour }}</a></td>
+                        <td><form method="post" action="{% url 'delete_task' task.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500 p-1 rounded-lg text-xs text-white hover:bg-red-800">Delete</button>
+                        </form></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+ 
+   
+    
+    
+   
+      
+      
+        <!-- <div class="bg-white shadow-md w-[400px] px-4 py-2 mt-10 rounded-lg mx-auto ">
+            <div class="w-[340px] mx-auto mt-4 text-xs">
+                <form>
+                    <div class="mb-2">
+                        <label for="project_name" class="text-indigo-600 font-semibold block mb-1">Task Name</label>
+                        <input type="text" id="project_name" name="project_name" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="project_size" class="text-indigo-600 font-semibold block mb-1">Description</label>
+                        <input type="text" id="project_size" name="project_size" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="project_address" class="text-indigo-600 font-semibold block mb-1">Floor</label>
+                        <input type="text" id="project_address" name="project_address" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="add_members" class="text-indigo-600 font-semibold block mb-1">Room</label>
+                        <input type="text" id="add_members" name="add_members" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="group" class="text-indigo-600 font-semibold block mb-1">Due date</label>
+                        <input type="text" id="group" name="group" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="project_manager" class="text-indigo-600 font-semibold block mb-1">Priority</label>
+                        <input type="text" id="project_manager" name="project_manager" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="project_manager" class="text-indigo-600 font-semibold block mb-1">Assigned</label>
+                        <input type="text" id="project_manager" name="project_manager" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="mb-2">
+                        <label for="project_manager" class="text-indigo-600 font-semibold block mb-1">Virtual Tour</label>
+                        <input type="text" id="project_manager" name="project_manager" class="w-full shadow-md px-3 py-1 border rounded-lg">
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Submit</button>
+                        <button type="submit" class="bg-neutral-400 text-white py-2 px-4 rounded-lg ml-2 hover:bg-indigo-700">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+         -->
+      
+      
+      
+        
+
+        
+       
+
+
+{% endblock %}
+
+
