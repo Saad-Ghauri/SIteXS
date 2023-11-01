@@ -10,6 +10,7 @@ urlpatterns = [
     path('projects/<slug:project_slug>/edit/', views.edit_project, name='edit_project'),
     path('projects/<str:project_slug>/virtual-tour/', views.virtual_tour, name='virtual_tour'),
     
+    path('save-marker/', views.save_marker, name='save_marker'),
 
     path('projects/<slug:project_slug>/', views.project_detail, name='project_detail'),
     path('virtual/', views.virtual_view, name='virtual'),
@@ -17,4 +18,5 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('dashboard/', views.dash, name='dashboard'),
+    path('test/', views.test, name='test'),
 ]

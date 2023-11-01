@@ -1,0 +1,331 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual tour</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+   
+
+    <link rel="stylesheet" href="//www.marzipano.net/demos/common/reset.css">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <style>
+        .content-container {
+          position: relative;
+          z-index: 1; /* Ensures content appears above A-Frame */
+        }
+        .z-container {
+          position: relative;
+          z-index: 1; /* Ensures content appears above A-Frame */
+        }
+        
+
+      </style>
+      
+
+</head>
+<body>
+    <div class="container  content-container z-container ">
+
+
+
+        <div class="flex items-center justify-between p-3 bg-opacity-40 bg-indigo-700 text-white z-container">
+            <a href="{% url 'create-tasks' %}"><button>Create a Task</button></a>
+
+            <h1 class="text-2xl">{{ project.project_name }}</h1>
+            
+            <a href="{% url 'virtual' %}"><button class="mr-2 p-2 border rounded-md">Back to Dashboard</button></a>
+             <button id="next-button" class="mr-2 p-2 text-sm  border rounded-md" onclick="changeImage(1)">Next</button>
+        <button id="prev-button" class="mr-2 p-2 text-sm border rounded-md" onclick="changeImage(-1)">Previous</button>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="flex items-center">
+                <input type="file" name="image" accept="image/*" class="mr-2 p-2 border rounded-md" />
+                <input type="text" name="name" placeholder="Image Name" class="mr-2 p-2 border rounded-md text-black" />  <!-- Add input for image name -->
+                <button type="submit" class="bg-indigo-700 text-white px-4 py-2 rounded-md hover:bg-indigo-800">Upload Image</button>
+            </div>
+        </form>
+        
+            <button id="toggleSidebar" class=" bg-white text-gray-800 p-2 rounded-lg shadow-md z-10">O</button>
+            <div class="flex space-x-2 items-center"><img class="max-w-[30px]" src="{% static 'icons/user.png' %}" alt="" srcset=""><h1 class="font-semibold">{{ user.username }}</h1></div>
+            
+        </div>
+
+
+        
+  
+            
+    </div>
+    <div class="w-[249px] h-[306px] bg-indigo-500 bg-opacity-40 rounded-lg z-container">
+        <ul class=" ">
+            {% for image in images %}
+            <li class="text-xs text-white p-2 {% if images %}{{ images.0.image.name }} text-gray-600 {% endif %}">{{ image.name }}</li>
+            {% endfor %}
+        </ul>
+        <button id="add-marker-button" class="mr-2 p-2 text-sm border rounded-md">Add Marker</button>
+
+
+    </div>
+    
+    
+    
+   
+
+
+  
+
+
+
+   
+
+
+    <a-scene>
+        <a-sky id="panorama-image" src="{% if images %}{{ images.0.image.url }}{% endif %}"></a-sky>
+    
+        <a-camera camera="fov: 100; zoom: 1">
+          <a-cursor ></a-cursor>
+        </a-camera>
+      </a-scene>
+    
+    
+  
+    
+    
+    <script>
+        document.getElementById("add-marker-button").addEventListener("click", function () {
+    // Create a new entity for the marker
+    var marker = document.createElement('a-entity');
+
+    // Set the geometry, material and position properties for the marker
+    marker.setAttribute('geometry', {primitive: 'box', height: 1, width: 1, depth: 1});
+    marker.setAttribute('material', {color: 'red'});
+    marker.setAttribute('position', {x: 0, y: 1.5, z: -5});
+
+    // Add the marker to the scene
+    document.querySelector('a-scene').appendChild(marker);
+});
+
+    </script>
+    
+    
+    
+    
+
+    <script>
+        var images = [
+            {% for image in images %}
+                "{{ image.image.url }}",
+            {% endfor %}
+        ];
+    
+        var currentIndex = 0;
+        var panoramaImage = document.getElementById("panorama-image");
+        
+        document.getElementById("next-button").addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            panoramaImage.setAttribute("src", images[currentIndex]);
+        });
+    
+        document.getElementById("prev-button").addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            panoramaImage.setAttribute("src", images[currentIndex]);
+        });
+    </script>
+    
+    
+
+    
+      
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+<!-- works -->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual tour</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+   
+
+    <link rel="stylesheet" href="//www.marzipano.net/demos/common/reset.css">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <style>
+        .content-container {
+          position: relative;
+          z-index: 1; /* Ensures content appears above A-Frame */
+        }
+        .z-container {
+          position: relative;
+          z-index: 1; /* Ensures content appears above A-Frame */
+        }
+        
+
+      </style>
+      
+
+</head>
+<body>
+    <div class="container  content-container z-container ">
+
+
+
+        <div class="flex items-center justify-between p-3 bg-opacity-40 bg-indigo-700 text-white z-container">
+            <a href="{% url 'create-tasks' %}"><button>Create a Task</button></a>
+
+            <h1 class="text-2xl">{{ project.project_name }}</h1>
+            
+            <a href="{% url 'virtual' %}"><button class="mr-2 p-2 border rounded-md">Back to Dashboard</button></a>
+             <button id="next-button" class="mr-2 p-2 text-sm  border rounded-md" onclick="changeImage(1)">Next</button>
+        <button id="prev-button" class="mr-2 p-2 text-sm border rounded-md" onclick="changeImage(-1)">Previous</button>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="flex items-center">
+                <input type="file" name="image" accept="image/*" class="mr-2 p-2 border rounded-md" />
+                <input type="text" name="name" placeholder="Image Name" class="mr-2 p-2 border rounded-md text-black" />  <!-- Add input for image name -->
+                <button type="submit" class="bg-indigo-700 text-white px-4 py-2 rounded-md hover:bg-indigo-800">Upload Image</button>
+            </div>
+        </form>
+        
+            <button id="toggleSidebar" class=" bg-white text-gray-800 p-2 rounded-lg shadow-md z-10">O</button>
+            <div class="flex space-x-2 items-center"><img class="max-w-[30px]" src="{% static 'icons/user.png' %}" alt="" srcset=""><h1 class="font-semibold">{{ user.username }}</h1></div>
+            
+        </div>
+
+
+        
+  
+            
+    </div>
+    <div class="w-[249px] h-[306px] bg-indigo-500 bg-opacity-40 rounded-lg z-container">
+        <ul class=" ">
+            {% for image in images %}
+            <li class="text-xs text-white p-2 {% if images %}{{ images.0.image.name }} text-gray-600 {% endif %}">{{ image.name }}</li>
+            {% endfor %}
+        </ul>
+        <button id="add-marker-button" class="mr-2 p-2 text-sm border rounded-md">Add Marker</button>
+
+
+    </div>
+    
+    
+    
+   
+
+
+  
+
+
+
+   
+
+
+    <a-scene id="scene">
+        <a-sky id="panorama-image" src="{% if images %}{{ images.0.image.url }}{% endif %}"></a-sky>
+
+        <a-camera id="camera" camera="fov: 100; zoom: 1">
+          <a-cursor ></a-cursor>
+        </a-camera>
+    </a-scene>
+
+    <script>
+        document.getElementById("add-marker-button").addEventListener("click", function () {
+            // Get the camera element
+            var cameraEl = document.querySelector('#camera');
+
+            // Create a new entity for the marker
+            var marker = document.createElement('a-entity');
+
+            // Set the geometry, material and position properties for the marker
+            marker.setAttribute('geometry', {primitive: 'box', height: .2, width: .2, depth: 0});
+            marker.setAttribute('material', {color: 'red'});
+
+            // Get the world direction that the camera is looking
+            var worldDir = new THREE.Vector3();
+            cameraEl.object3D.getWorldDirection(worldDir);
+
+            // Scale the world direction vector and add it to the camera's position
+            var markerPos = cameraEl.object3D.position.clone().add(worldDir.multiplyScalar(-5));
+
+            // Set the position of the marker to the position of the click event
+            marker.setAttribute('position', markerPos);
+
+            // Add the marker to the scene
+            document.querySelector('#scene').appendChild(marker);
+        });
+
+        // ...
+
+    </script>
+    
+    
+    
+
+    <script>
+        var images = [
+            {% for image in images %}
+                "{{ image.image.url }}",
+            {% endfor %}
+        ];
+    
+        var currentIndex = 0;
+        var panoramaImage = document.getElementById("panorama-image");
+        
+        document.getElementById("next-button").addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            panoramaImage.setAttribute("src", images[currentIndex]);
+        });
+    
+        document.getElementById("prev-button").addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            panoramaImage.setAttribute("src", images[currentIndex]);
+        });
+    </script>
+    
+    
+
+    
+      
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

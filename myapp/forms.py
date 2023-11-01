@@ -23,11 +23,10 @@ class ProjectForm(forms.ModelForm):
 
 
 
-class ImageForm(forms.Form):
+class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'accept': 'image/*'}), required=True)
-
+        fields = ['name', 'image'] 
 
 
 

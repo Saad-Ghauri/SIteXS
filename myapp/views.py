@@ -1,17 +1,18 @@
+import json
 from django.shortcuts import render
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect , get_object_or_404
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 from django.http import HttpResponse
 
-from .forms import TaskForm
+from .forms import ImageForm, TaskForm
 from .forms import ProjectForm
-from .models import Image, Task
+from .models import Image, Marker, Task
 from .models import Project
 
 
@@ -79,17 +80,44 @@ def edit_project(request, project_slug):
 
 def virtual_tour(request, project_slug):
     project = Project.objects.get(slug=project_slug)
-    if request.method == 'POST':
-        
-        image = request.FILES['360_image']
-        Image.objects.create(project=project, image=image)
-
     images = Image.objects.filter(project=project)
-    return render(request, 'virtual_tour.html', {'project': project, 'images': images})
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.project = project
+            image.user = request.user  # If you want to associate the user
+            image.save()
+            return redirect('virtual_tour', project_slug=project.slug)  # Redirect back to the virtual tour
+
+    else:
+        form = ImageForm()
+
+    return render(request, 'virtual_tour.html', {'project': project, 'images': images, 'form': form})
 
 
 
-
+@csrf_exempt
+def save_marker(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        image = Image.objects.get(id=data['image_id'])
+        marker = Marker(
+            x_position=data['x_position'],
+            y_position=data['y_position'],
+            z_position=data['z_position'],
+            image=image
+        )
+        marker.save()
+        return JsonResponse({'status': 'success'})
+@csrf_exempt
+def load_markers(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        image = Image.objects.get(id=data['image_id'])
+        markers = Marker.objects.filter(image=image)
+        markers_data = [{'x_position': marker.x_position, 'y_position': marker.y_position, 'z_position': marker.z_position} for marker in markers]
+        return JsonResponse({'markers': markers_data})
 
 
 
@@ -196,3 +224,5 @@ def dash(request):
 
 
 
+def test(request):
+    return render(request, 'dash.html')

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -59,12 +59,22 @@ class Project(models.Model):
 
 
 class Image(models.Model):
-    name = models.CharField(max_length=30, null=True)
+    name = models.CharField(max_length=30, blank=True, null=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='360_images/')
+    def __str__(self):
+        return self.name
 
+
+class Marker(models.Model):
+    x_position = models.FloatField()
+    y_position = models.FloatField()
+    z_position = models.FloatField()
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+
+   
 
 
 class Markup(models.Model):
