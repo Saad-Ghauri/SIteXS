@@ -5,20 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual tour</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+
+    
+
+
    
 
-    <link rel="stylesheet" href="//www.marzipano.net/demos/common/reset.css">
 <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <style>
+
+.pdf-container {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pdf-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    
+}
+
+.hotspot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+
+        #context-menu {
+            display: none;
+            position: absolute;
+            background-color: rgb(226, 196, 255);
+            border: 1px solid black;
+            
+        }
+        
+
         .content-container {
           position: relative;
           z-index: 1; /* Ensures content appears above A-Frame */
@@ -27,13 +68,50 @@
           position: relative;
           z-index: 1; /* Ensures content appears above A-Frame */
         }
-        
+        .zin {
+            z-index: 1;
+        }
 
       </style>
       
 
 </head>
 <body>
+    
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Floorplans</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                {% for floorplan in floorplans %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="loadPdf('{{ floorplan.pdf.url }}', '{{ floorplan.id }}')">
+                        {{ floorplan.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+   
+
+    <!-- <div id="pdf-container" class="relative z-10">
+        <canvas id="pdf-canvas" class="w-[300px] h-[200px]"></canvas>
+        <div id="hotspot-layer" class="absolute top-0 w-52 h-52"></div>
+    </div>
+    <div id="context-menu" class="z-10">
+        <button id="create-hotspot" class="z-10 w-full h-full">Create hotspot</button>
+    </div> -->
+
+    
+     
+
+
+
+
     <div class="container  content-container z-container ">
 
 
@@ -60,89 +138,294 @@
             
         </div>
 
-
         
-  
+        <button class="navbar-toggler p-3 z-container btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>View Floorplans
+          </button>
+        <a href="{% url 'upload_floorplan' %}">upload_floorplan</a>
+        
+     
             
     </div>
-    <div class="w-[249px] h-[306px] bg-indigo-500 bg-opacity-40 rounded-lg z-container">
+    <div class="w-[249px] h-[306px] bg-indigo-500 absolute right-0 bg-opacity-40 rounded-lg z-container">
         <ul class=" ">
             {% for image in images %}
             <li class="text-xs text-white p-2 {% if images %}{{ images.0.image.name }} text-gray-600 {% endif %}">{{ image.name }}</li>
             {% endfor %}
+            {% for marker in markers %}
+            <li class="text-xs text-white p-2 {% if images %}{{ images.0.image.name }} text-gray-600 {% endif %}">{{ marker.title }}</li>
+            {% endfor %}
         </ul>
         <button id="add-marker-button" class="mr-2 p-2 text-sm border rounded-md">Add Marker</button>
+        <button id="add-arrow-button" class="mr-2 p-2 text-sm border rounded-md">Add Arrow</button>
+        <button id="add-outline-sphere-button" class="mr-2 p-2 text-sm border rounded-md">Add Outline Sphere</button>
+        <button id="add-cube-button" class="mr-2 p-2 text-sm border rounded-md">Add Cube</button>
 
+        <!-- <div id="marker-modal" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+            <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 30%;">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ marker_form.as_p }}
+                    <button type="submit">Save Marker</button>
+                </form>
+                <button id="save-marker-button">Save Marker</button>
+            </div>
+        </div> -->
+        
+    </div>
+  
+    <div class="relative inline-block text-left mx-5 z-50">
+        <button id="dropdown-toggle" type="button" class="inline-flex justify-between w-[200px] rounded-tl-lg rounded-tr-lg tracking-widest  shadow-sm p-1 bg-indigo-700 text-xs text-[10px] text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+          Floorplans
+          <!-- Chevron Down Icon -->
+          <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 14l6-6v-2l-6 6-6-6v2l6 6z"/>
+          </svg>
+        </button>
+      
+        <!-- Dropdown Content -->
+       
+          <div class="dropdown-content origin-top-right absolute right-0  w-[200px] rounded-b-lg  shadow-md bg-stone-300 ring-1 ring-black ring-opacity-5" style="display: none;">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+              <!-- Dropdown Items -->
+              {% for floorplan in floorplans %}
+              <ul class="">
+                <li class="rounded-2xl shadow-md text-white w-3/4">
+                  <a href="#"  onclick="loadPdf('{{ floorplan.pdf.url }}', '{{ floorplan.id }}')" class="block px-2 tracking-widest py-1  text-sm hover:text-indigo-700 " role="menuitem">{{ floorplan.name }} </a>
+                </li>
+              </ul>
+              {% endfor %}
+            </div>
+          </div>
+       
+      </div>
+   
+<div class="w-[300px] mx-5 flex z-container">
+    <!-- UI Box -->
+    <div class="bg-white w-[300px] h-[210px]  rounded-md  shadow-md">
+        
 
+        <!-- PDF Container Loop -->
+        {% for floorplan in floorplans %}
+        <div id="pdf-container-{{ floorplan.id }}" class="relative w-[300px]  rounded-md">
+            <canvas id="pdf-canvas-{{ floorplan.id }}" class="w-[300px] h-[210px] opacity-70 pdf-canvas " data-floorplan-id="{{ floorplan.id }}"></canvas>
+            <div id="hotspot-layer-{{ floorplan.id }}" class="absolute top-0 w-fit"></div>
+        </div>
+        {% endfor %}
     </div>
     
-    
-    
-   
+      
+      <script>
+        document.getElementById('dropdown-toggle').addEventListener('click', function() {
+          var dropdownContent = document.querySelector('.dropdown-content');
+          dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
+        });
+      </script>
+        <div class="w-20 h-52 bg-white p-2 rounded-r-lg flex flex-col justify-around items-baseline">
+            <div><button><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_d_59_1298)">
+                <path d="M2 9C2 4.58172 5.58172 1 10 1C14.4183 1 18 4.58172 18 9C18 13.4183 14.4183 17 10 17C5.58172 17 2 13.4183 2 9Z" fill="white"/>
+                </g>
+                <path d="M7 9L13 9" stroke="#5030E5" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M10 12L10 6" stroke="#5030E5" stroke-width="1.5" stroke-linecap="round"/>
+                <defs>
+                <filter id="filter0_d_59_1298" x="0" y="0" width="20" height="20" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="1"/>
+                <feGaussianBlur stdDeviation="1"/>
+                <feComposite in2="hardAlpha" operator="out"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_59_1298"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_59_1298" result="shape"/>
+                </filter>
+                </defs>
+                </svg>
+                </button></div>
+            <div>1</div>
+            <div>1</div>
+        </div>
+</div>
 
 
   
-
-
-
    
 
-
-    <a-scene id="scene">
+    <a-scene id="scene" class="z-0">
         <a-sky id="panorama-image" src="{% if images %}{{ images.0.image.url }}{% endif %}"></a-sky>
 
         <a-camera id="camera" camera="fov: 80; zoom: 1">
           <a-cursor ></a-cursor>
         </a-camera>
     </a-scene>
-
     <script>
-      document.getElementById("add-marker-button").addEventListener("click", function () {
-    // Get the camera element
-    var cameraEl = document.querySelector('#camera');
-
-    // Create a new entity for the marker
-    var marker = document.createElement('a-entity');
-
-    // Get the world direction that the camera is looking
-    var worldDir = new THREE.Vector3();
-    cameraEl.object3D.getWorldDirection(worldDir);
-
-    // Scale the world direction vector and add it to the camera's position
-    var markerPos = cameraEl.object3D.position.clone().add(worldDir.multiplyScalar(-5));
-
-    // Set the position of the marker to the position of the click event
-    marker.setAttribute('position', markerPos);
-
-    // Create an outlined box using the line component
-    var lines = [
-        {start: '-0.5 0.5 -0.5', end: '0.5 0.5 -0.5'},
-        {start: '0.5 0.5 -0.5', end: '0.5 -0.5 -0.5'},
-        {start: '0.5 -0.5 -0.5', end: '-0.5 -0.5 -0.5'},
-        {start: '-0.5 -0.5 -0.5', end: '-0.5 0.5 -0.5'},
-        {start: '-0.5 0.5 0.5', end: '0.5 0.5 0.5'},
-        {start: '0.5 0.5 0.5', end: '0.5 -0.5 0.5'},
-        {start: '0.5 -0.5 0.5', end: '-0.5 -0.5 0.5'},
-        {start: '-0.5 -0.5 0.5', end: '-0.5 0.5 0.5'},
-        {start: '-0.5 0.5 -0.5', end: '-0.5 0.5 0.5'},
-        {start: '0.5 0.5 -0.5', end: '0.5 0.5 0.5'},
-        {start: '0.5 -0.5 -0.5', end: '0.5 -0.5 0.5'},
-        
-    ];
+        var pdfDocs = {};
+        var activeFloorplan = null;
     
-    for (var i = 1; i <= lines.length; i++) {
-        var line = document.createElement('a-entity');
-        line.setAttribute('line', {start: lines[i-1].start, end: lines[i-1].end, color: 'yellow'});
-        marker.appendChild(line);
-    }
-
-    // Add the marker to the scene
-    document.querySelector('#scene').appendChild(marker);
-});
-
+        function renderPage(num, canvas, ctx) {
+            pdfDocs[activeFloorplan].getPage(num).then(function(page) {
+                var viewport = page.getViewport({ scale: 2 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport,
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function() {
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+        }
+    
+        function loadPdf(url, id) {
+            // Hide all PDF containers and context menus
+            for (var floorplanId in pdfDocs) {
+                document.getElementById('pdf-container-' + floorplanId).style.display = 'none';
+                document.getElementById('hotspot-layer-' + floorplanId).innerHTML = ''; // Clear hotspots
+            }
+    
+            // Show the selected PDF container
+            document.getElementById('pdf-container-' + id).style.display = 'block';
+    
+            // Set the active floorplan
+            activeFloorplan = id;
+    
+            // Set the canvas and context for the selected PDF
+            var canvas = document.getElementById('pdf-canvas-' + id);
+            var ctx = canvas.getContext('2d');
+    
+            // Load and render the selected PDF
+            pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+                pdfDocs[id] = pdfDoc_;
+                renderPage(1, canvas, ctx);
+            });
+        }
+    
+        document.addEventListener('contextmenu', function(event) {
+            if (event.target.classList.contains('pdf-canvas')) {
+                event.preventDefault();
+                handleCanvasRightClick(event);
+            }
+        });
+    
+        function handleCanvasRightClick(event) {
+            var id = event.target.getAttribute('data-floorplan-id');
+            createHotspot(event, id);
+        }
+    
+        function createHotspot(event, id) {
+            var canvas = document.getElementById('pdf-canvas-' + id);
+            var rect = canvas.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+    
+            var hotspot = document.createElement('div');
+            hotspot.className = 'hotspot';
+            hotspot.style.left = x + 'px';
+            hotspot.style.top = y + 'px';
+    
+            document.getElementById('hotspot-layer-' + id).appendChild(hotspot);
+        }
     </script>
     
+
+
+
+
     
+   
+<script>
+    document.getElementById("add-arrow-button").addEventListener("click", function () {
+      // Get the camera element
+      var cameraEl = document.querySelector('#camera');
+  
+      // Create a new entity for the arrow
+      var arrow = document.createElement('a-entity');
+  
+      // Get the world direction that the camera is looking
+      var worldDir = new THREE.Vector3();
+      cameraEl.object3D.getWorldDirection(worldDir);
+  
+      // Scale the world direction vector and add it to the camera's position
+      var arrowPos = cameraEl.object3D.position.clone().add(worldDir.multiplyScalar(-5));
+  
+      // Set the position of the arrow to the position of the click event
+      arrow.setAttribute('position', arrowPos);
+  
+      // Create an arrow using the line component
+      var lines = [
+          {start: '0 0 0', end: '0 1 0', color: 'yellow'},
+          {start: '0 1 0', end: '-0.2 0.8 0', color: 'yellow'},
+          {start: '0 1 0', end: '0.2 0.8 0', color: 'yellow'}
+      ];
+      
+      for (var i = 1; i <= lines.length; i++) {
+          var line = document.createElement('a-entity');
+          line.setAttribute('line', {start: lines[i-1].start, end: lines[i-1].end, color: 'yellow'});
+          arrow.appendChild(line);
+      }
+  
+      // Add the arrow to the scene
+      document.querySelector('#scene').appendChild(arrow);
+  });
+  </script>
+<script>
+    document.getElementById("add-cube-button").addEventListener("click", function () {
+      // Get the camera element
+      var cameraEl = document.querySelector('#camera');
+  
+      // Create a new entity for the cube
+      var cube = document.createElement('a-entity');
+  
+      // Get the world direction that the camera is looking
+      var worldDir = new THREE.Vector3();
+      cameraEl.object3D.getWorldDirection(worldDir);
+  
+      // Scale the world direction vector and add it to the camera's position
+      var cubePos = cameraEl.object3D.position.clone().add(worldDir.multiplyScalar(-5));
+  
+      // Set the position of the cube to the position of the click event
+      cube.setAttribute('position', cubePos);
+  
+      // Create a cube using the box component
+      cube.setAttribute('geometry', {primitive: 'box', width: 1, height: 1, depth: 1});
+      cube.setAttribute('material', {color: 'red', opacity: 0.2, wireframe: true});
+  
+      // Add the cube to the scene
+      document.querySelector('#scene').appendChild(cube);
+  });
+  </script>
+<script>
+    document.getElementById("add-outline-sphere-button").addEventListener("click", function () {
+      // Get the camera element
+      var cameraEl = document.querySelector('#camera');
+  
+      // Create a new entity for the sphere
+      var sphere = document.createElement('a-entity');
+  
+      // Get the world direction that the camera is looking
+      var worldDir = new THREE.Vector3();
+      cameraEl.object3D.getWorldDirection(worldDir);
+  
+      // Scale the world direction vector and add it to the camera's position
+      var spherePos = cameraEl.object3D.position.clone().add(worldDir.multiplyScalar(-5));
+  
+      // Set the position of the sphere to the position of the click event
+      sphere.setAttribute('position', spherePos);
+  
+      // Create a sphere using the geometry component
+      sphere.setAttribute('geometry', {primitive: 'sphere', radius: 1});
+      sphere.setAttribute('material', {color: 'red', opacity: 0.1, wireframe: true});
+  
+      // Add the sphere to the scene
+      document.querySelector('#scene').appendChild(sphere);
+  });
+  </script>
+
 
     
       
@@ -168,6 +451,8 @@
     </script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
 </html>

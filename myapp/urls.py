@@ -9,8 +9,8 @@ urlpatterns = [
     path('create-project/', views.create_project, name='create-project'),
     path('projects/<slug:project_slug>/edit/', views.edit_project, name='edit_project'),
     path('projects/<str:project_slug>/virtual-tour/', views.virtual_tour, name='virtual_tour'),
-    
-    path('save-marker/', views.save_marker, name='save_marker'),
+     path('upload/', views.upload_floorplan, name='upload_floorplan'),
+    path('markers/', views.markers, name='markers'),
 
     path('projects/<slug:project_slug>/', views.project_detail, name='project_detail'),
     path('virtual/', views.virtual_view, name='virtual'),

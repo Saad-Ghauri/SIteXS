@@ -329,3 +329,58 @@
 
 
 
+
+
+
+
+
+
+
+<!-- box -->
+
+<script>
+    document.getElementById("add-marker-button").addEventListener("click", function () {
+  // Get the camera element
+  var cameraEl = document.querySelector('#camera');
+
+  // Create a new entity for the marker
+  var marker = document.createElement('a-entity');
+
+  // Get the world direction that the camera is looking
+  var worldDir = new THREE.Vector3();
+  cameraEl.object3D.getWorldDirection(worldDir);
+
+  // Scale the world direction vector and add it to the camera's position
+  var markerPos = cameraEl.object3D.position.clone().add(worldDir.multiplyScalar(-5));
+
+  // Set the position of the marker to the position of the click event
+  marker.setAttribute('position', markerPos);
+
+  // Create an outlined box using the line component
+  var lines = [
+      {start: '-0.5 0.5 -0.5', end: '0.5 0.5 -0.5'},
+      {start: '0.5 0.5 -0.5', end: '0.5 -0.5 -0.5'},
+      {start: '0.5 -0.5 -0.5', end: '-0.5 -0.5 -0.5'},
+      {start: '-0.5 -0.5 -0.5', end: '-0.5 0.5 -0.5'},
+      {start: '-0.5 0.5 0.5', end: '0.5 0.5 0.5'},
+      {start: '0.5 0.5 0.5', end: '0.5 -0.5 0.5'},
+      {start: '0.5 -0.5 0.5', end: '-0.5 -0.5 0.5'},
+      {start: '-0.5 -0.5 0.5', end: '-0.5 0.5 0.5'},
+      {start: '-0.5 0.5 -0.5', end: '-0.5 0.5 0.5'},
+      {start: '0.5 0.5 -0.5', end: '0.5 0.5 0.5'},
+      {start: '0.5 -0.5 -0.5', end: '0.5 -0.5 0.5'},
+      
+  ];
+  
+  for (var i = 1; i <= lines.length; i++) {
+      var line = document.createElement('a-entity');
+      line.setAttribute('line', {start: lines[i-1].start, end: lines[i-1].end, color: 'red'});
+      marker.appendChild(line);
+  }
+
+  // Add the marker to the scene
+  document.querySelector('#scene').appendChild(marker);
+});
+
+  </script>
+<!-- boxend -->

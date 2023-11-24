@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 from django import forms
-from .models import Task
+from .models import FloorPlan, Marker, Task
 from .models import Project,Image
 
 class TaskForm(forms.ModelForm):
@@ -30,7 +30,10 @@ class ImageForm(forms.ModelForm):
 
 
 
-
+class MarkerForm(forms.ModelForm):
+    class Meta:
+        model = Marker
+        fields = ['title', 'position']
 
 
 
@@ -40,3 +43,9 @@ class ImageForm(forms.ModelForm):
 
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+class UploadFloorPlanForm(forms.ModelForm):
+    class Meta:
+        model = FloorPlan
+        fields = ('pdf', 'name', 'project_name')
+
+

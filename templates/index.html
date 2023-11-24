@@ -15,31 +15,90 @@
     </head>
 
     <body class="">
-        <header class="">
-            <nav class="flex top-0 opacity-100 z-50 fixed  justify-between items-center backdrop-blur-xl bg-white/70 bg-slate-50  w-full py-5">
-                <a href="{% url 'home' %}">                <img class="px-2 w-24 mx-10" src="{% static 'img/SiteX logo.svg' %}" alt="" srcset="">
+        <header class="bg-white/70 backdrop-blur-xl fixed top-0 w-full z-50 py-5">
+            <nav class="container mx-auto flex justify-between items-center">
+                <a href="{% url 'home' %}" class="px-2 sm:px-4">
+                    <img class="sm:w-24 w-16" src="{% static 'img/SiteX logo.svg' %}" alt="" srcset="">
                 </a>
-                <ul class="flex space-x-10 mx-10 font-sans font-medium tracking-widest text-black">
-
-
-                    <li>
-                        <a href="">Home</a>
+        
+                <!-- Hamburger Menu for Small Screens -->
+                <div class="block sm:hidden">
+                    <button id="burger-menu" class="text-black focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+        
+                <!-- Navigation Links -->
+                <ul id="nav-links" class="hidden sm:flex space-x-4 sm:space-x-10 mx-4 sm:mx-10 font-sans font-medium tracking-widest text-black">
+                    <li class="group relative">
+                        <a href="" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                            Home
+                        </a>
                     </li>
-                    <li>
-                        <a href="aboutus.html">About us</a>
+                    <li class="group relative">
+                        <a href="aboutus.html" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                            About us
+                        </a>
                     </li>
-                    <li>
-                        <a href="contactus.html">Contact us</a>
+                    <li class="group relative">
+                        <a href="contactus.html" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                            Contact us
+                        </a>
                     </li>
-                    <li><a href="{% url 'login' %}">Sign In</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
-                    
-                    
-                </ul>
+                    <li class="group relative">
+                        <a href="{% url 'login' %}" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                            Sign In
+                        </a>
+                    </li>
+                    <li class="group relative">
+                        <a href="{% url 'register' %}" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                            Register
+                        </a>
+                    </li> </ul>
             </nav>
+        
+            <!-- Mobile Menu (Hidden by default) -->
+            <ul id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-3 mx-1 font-sans font-medium tracking-widest text-black">
+                <li class="group relative">
+                    <a href="" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                        Home
+                    </a>
+                </li>
+                <li class="group relative">
+                    <a href="aboutus.html" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                        About us
+                    </a>
+                </li>
+                <li class="group relative">
+                    <a href="contactus.html" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                        Contact us
+                    </a>
+                </li>
+                <li class="group relative">
+                    <a href="{% url 'login' %}" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                        Sign In
+                    </a>
+                </li>
+                <li class="group relative">
+                    <a href="{% url 'register' %}" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                        Register
+                    </a>
+                </li>
+            </ul>
             
         </header>
-
+        
+        <script>
+            // JavaScript for Mobile Menu Toggle
+            document.getElementById('burger-menu').addEventListener('click', function () {
+                
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        </script>
+        
+        
 
        
 

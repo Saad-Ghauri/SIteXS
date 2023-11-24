@@ -69,33 +69,20 @@ class Image(models.Model):
 
 
 class Marker(models.Model):
-    x_position = models.FloatField()
-    y_position = models.FloatField()
-    z_position = models.FloatField()
+    title = models.CharField(max_length=30, null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
-
-   
-
-
-class Markup(models.Model):
-    title = models.CharField(max_length=255)
-    status = models.CharField(max_length=50)
-    due_date = models.DateField()
-    description = models.TextField()
-    image = models.ForeignKey('Image', on_delete=models.CASCADE)  # Assuming you have an Image model
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)  # Assuming you have a Project model
-    position_x = models.FloatField()  # X-coordinate of the markup on the image
-    position_y = models.FloatField()  # Y-coordinate of the markup on the image
+    position = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.title
+    
 
 
 
-# class Image360(models.Model):
-#     name = models.CharField(max_length=100)
-#     image = models.ImageField(upload_to='360_images/')
-#     description = models.TextField(blank=True, null=True)
-#     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-#     date = models.DateField()
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+class FloorPlan(models.Model):
+    name = models.CharField(max_length=30)
+    pdf = models.FileField(upload_to='floorplans/')
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+    

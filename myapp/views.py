@@ -10,9 +10,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.http import HttpResponse
 
-from .forms import ImageForm, TaskForm
+from .forms import ImageForm, TaskForm, UploadFloorPlanForm
 from .forms import ProjectForm
-from .models import Image, Marker, Task
+from .models import FloorPlan, Image, Marker, Task
 from .models import Project
 
 
@@ -78,22 +78,50 @@ def edit_project(request, project_slug):
     return render(request, 'edit_project.html', {'form': form, 'project': project})
 
 
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Project, Image, Marker
+from .forms import ImageForm, MarkerForm
+
 def virtual_tour(request, project_slug):
     project = Project.objects.get(slug=project_slug)
     images = Image.objects.filter(project=project)
+    floorplans = FloorPlan.objects.filter(project_name=project)
     if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            image = form.save(commit=False)
+        image_form = ImageForm(request.POST, request.FILES)
+        marker_form = MarkerForm(request.POST)
+        if 'image' in request.FILES and image_form.is_valid():
+            image = image_form.save(commit=False)
             image.project = project
             image.user = request.user  # If you want to associate the user
             image.save()
-            return redirect('virtual_tour', project_slug=project.slug)  # Redirect back to the virtual tour
+        elif marker_form.is_valid():
+            marker = marker_form.save(commit=False)
+            marker.image = images.first()  # Replace with the correct image
+            marker.save()
+        return redirect('virtual_tour', project_slug=project.slug)  # Redirect back to the virtual tour
 
     else:
-        form = ImageForm()
+        image_form = ImageForm()
+        marker_form = MarkerForm()
 
-    return render(request, 'virtual_tour.html', {'project': project, 'images': images, 'form': form})
+    return render(request, 'virtual_tour.html', {'project': project, 'images': images, 'image_form': image_form, 'marker_form': marker_form, 'floorplans': floorplans})
+
+@csrf_exempt
+def markers(request):
+    if request.method == 'POST':
+        form = MarkerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    elif request.method == 'GET':
+        image_id = request.GET.get('image_id')
+        markers = Marker.objects.filter(image_id=image_id).values()
+        return JsonResponse(list(markers), safe=False)
+
 
 
 
@@ -226,3 +254,16 @@ def dash(request):
 
 def test(request):
     return render(request, 'dash.html')
+
+
+
+
+def upload_floorplan(request):
+    if request.method == 'POST':
+        form = UploadFloorPlanForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('virtual')
+    else:
+        form = UploadFloorPlanForm()
+    return render(request, 'upload.html', {'form': form})
