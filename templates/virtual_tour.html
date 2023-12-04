@@ -287,6 +287,22 @@
                 document.getElementById('pdf-container-' + floorplanId).style.display = 'none';
                 document.getElementById('hotspot-layer-' + floorplanId).innerHTML = ''; // Clear hotspots
             }
+            var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/load_hotspots/' + id, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var hotspots = JSON.parse(xhr.responseText);
+            hotspots.forEach(function(hotspot) {
+                var hotspotDiv = document.createElement('div');
+                hotspotDiv.className = 'hotspot';
+                hotspotDiv.style.left = hotspot.x + 'px';
+                hotspotDiv.style.top = hotspot.y + 'px';
+                hotspotDiv.textContent = hotspot.name; // Display the name on the hotspot
+                document.getElementById('hotspot-layer-' + id).appendChild(hotspotDiv);
+            });
+        }
+    };
+    xhr.send();
     
             // Show the selected PDF container
             document.getElementById('pdf-container-' + id).style.display = 'block';
@@ -318,20 +334,32 @@
         }
     
         function createHotspot(event, id) {
-            var canvas = document.getElementById('pdf-canvas-' + id);
-            var rect = canvas.getBoundingClientRect();
-            var x = event.clientX - rect.left;
-            var y = event.clientY - rect.top;
-    
-            var hotspot = document.createElement('div');
-            hotspot.className = 'hotspot';
-            hotspot.style.left = x + 'px';
-            hotspot.style.top = y + 'px';
-    
-            document.getElementById('hotspot-layer-' + id).appendChild(hotspot);
-        }
+    var canvas = document.getElementById('pdf-canvas-' + id);
+    var rect = canvas.getBoundingClientRect();
+    var x = event.clientX - rect.left;
+    var y = event.clientY - rect.top;
+
+    // Prompt the user for the hotspot name
+    var hotspotName = prompt("Please enter the name for the hotspot:");
+
+    if (hotspotName) {
+        var hotspot = document.createElement('div');
+        hotspot.className = 'hotspot';
+        hotspot.style.left = x + 'px';
+        hotspot.style.top = y + 'px';
+        hotspot.textContent = hotspotName; // Display the name on the hotspot
+
+        document.getElementById('hotspot-layer-' + id).appendChild(hotspot);
+
+        // Send the hotspot data to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/save_hotspot/', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('name=' + encodeURIComponent(hotspotName) + '&x=' + x + '&y=' + y + '&floorplan_id=' + id);
+    }
+}
+
     </script>
-    
 
 
 

@@ -86,3 +86,13 @@ class FloorPlan(models.Model):
     def __str__(self):
         return self.name
     
+
+
+
+class Hotspot(models.Model):
+    name = models.CharField(max_length=100)
+    x = models.IntegerField()
+    y = models.IntegerField()
+    floorplan = models.ForeignKey(FloorPlan, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name

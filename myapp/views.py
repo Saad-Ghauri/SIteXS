@@ -10,9 +10,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.http import HttpResponse
 
-from .forms import ImageForm, TaskForm, UploadFloorPlanForm
+from .forms import HotspotForm, ImageForm, TaskForm, UploadFloorPlanForm
 from .forms import ProjectForm
-from .models import FloorPlan, Image, Marker, Task
+from .models import FloorPlan, Hotspot, Image, Marker, Task
 from .models import Project
 
 
@@ -267,3 +267,41 @@ def upload_floorplan(request):
     else:
         form = UploadFloorPlanForm()
     return render(request, 'upload.html', {'form': form})
+
+
+
+
+
+
+
+
+def hotspot_form(request, floorplan_id):
+    floorplan = FloorPlan.objects.get(id=floorplan_id)
+
+    if request.method == 'POST':
+        form = HotspotForm(request.POST)
+        if form.is_valid():
+            hotspot = form.save(commit=False)
+            hotspot.floorplan = floorplan
+            hotspot.save()
+            return redirect('virtual_tour', project_slug=floorplan.project_name.slug)
+    else:
+        form = HotspotForm()
+
+    return render(request, 'hotspot_form.html', {'form': form, 'floorplan': floorplan})
+
+
+@csrf_exempt
+def save_hotspot(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        x = request.POST.get('x')
+        y = request.POST.get('y')
+        floorplan_id = request.POST.get('floorplan_id')
+        floorplan = FloorPlan.objects.get(id=floorplan_id)
+        Hotspot.objects.create(name=name, x=x, y=y, floorplan=floorplan)
+        return JsonResponse({'status': 'success'})
+
+def load_hotspots(request, floorplan_id):
+    hotspots = Hotspot.objects.filter(floorplan_id=floorplan_id).values('name', 'x', 'y')
+    return JsonResponse(list(hotspots), safe=False)

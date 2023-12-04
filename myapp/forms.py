@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 from django import forms
-from .models import FloorPlan, Marker, Task
+from .models import FloorPlan, Hotspot, Marker, Task
 from .models import Project,Image
 
 class TaskForm(forms.ModelForm):
@@ -49,3 +49,7 @@ class UploadFloorPlanForm(forms.ModelForm):
         fields = ('pdf', 'name', 'project_name')
 
 
+class HotspotForm(forms.ModelForm):
+    class Meta:
+        model = Hotspot
+        fields = ['name', 'x', 'y']
