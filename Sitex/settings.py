@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-_fm0f(8gw9@t5(lrgkh7wujd@ieu^ptg6y%6ekoxhb2q42piti
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sitex.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -81,7 +81,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Sitex.wsgi.application'
 
-
+CSRF_TRUSTED_ORIGINS = ['https://sitex.up.railway.app']
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
