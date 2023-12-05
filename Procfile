@@ -1,1 +1,1 @@
-web: gunicorn Sitex.wsgi --log-file -
+web: gunicorn Sitex.wsgi
