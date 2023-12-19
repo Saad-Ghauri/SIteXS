@@ -18,24 +18,16 @@ from .models import Project
 
 def create_task(request):
     if request.method == 'POST':
-        form = TaskForm(request.POST)
+        form = TaskForm(request.user, request.POST)
         if form.is_valid():
             task = form.save(commit=False)
-            task.user = request.user  # Assign the task to the logged-in user
+            task.user = request.user
             task.save()
-            return redirect('tasks')  # Redirect to a page displaying the task list
+            return redirect('tasks')
     else:
-        form = TaskForm()
+        form = TaskForm(request.user)
 
-
-    # tasks = Task.objects.filter(user=request.user)
-    # tasks = Task.objects.filter(user=request.user).order_by('-created_at')
-    # tasks = Task.objects.filter(user=request.user).order_by('-id')
-    # tasks = Task.objects.filter(user=request.user).order_by('-created_at') # Order by created_at in descending order
     tasks = Task.objects.filter(user=request.user).order_by('-created_at')
-
-    
-
     return render(request, 'create_task.html', {'form': form, 'tasks': tasks})
 
 
@@ -267,22 +259,20 @@ def test(request):
 
 def upload_floorplan(request):
     if request.method == 'POST':
-        form = UploadFloorPlanForm(request.POST, request.FILES)
+        form = UploadFloorPlanForm(request.user, request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('virtual')
     else:
-        form = UploadFloorPlanForm()
+        form = UploadFloorPlanForm(request.user)
     return render(request, 'upload.html', {'form': form})
 
 
 
 
 
-
-
-
 def hotspot_form(request, floorplan_id):
+    projects = Project.objects.filter(user=request.user)
     floorplan = FloorPlan.objects.get(id=floorplan_id)
 
     if request.method == 'POST':

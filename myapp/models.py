@@ -8,26 +8,6 @@ from slugify import slugify
 from django.utils.text import slugify
 
 # Create your models here.
-
-
-
-
-class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
-    description = models.CharField(max_length=30)
-    floor = models.CharField(max_length=30)
-    room = models.CharField(max_length=30)
-    due_date = models.DateField()
-    priority = models.CharField(max_length=30)
-    assigned = models.CharField(max_length=30)
-    virtual_tour = models.CharField(max_length=30)
-    created_at = models.DateTimeField(default=timezone.now)
-
-
-    def __str__(self):
-        return self.name
-
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=30)
@@ -53,9 +33,33 @@ class Project(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return f'{self.project_name} - Username {self.user.username}'
+        # return f'{self.project_name} - Username {self.user.username}'
+        return self.project_name
     
  
+
+
+
+class Task(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=30)
+    floor = models.CharField(max_length=30)
+    room = models.CharField(max_length=30)
+    due_date = models.DateField()
+    priority = models.CharField(max_length=30)
+    assigned = models.CharField(max_length=30)
+    virtual_tour = models.CharField(max_length=30)
+    created_at = models.DateTimeField(default=timezone.now)
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+
+
+
+
+    def __str__(self):
+        return self.name
+
+
 
 
 class Image(models.Model):

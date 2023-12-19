@@ -7,10 +7,7 @@ from django import forms
 from .models import FloorPlan, Hotspot, Marker, Task
 from .models import Project,Image
 
-class TaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ['name', 'description', 'floor', 'room', 'due_date', 'priority', 'assigned', 'virtual_tour']
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -48,9 +45,19 @@ class UploadFloorPlanForm(forms.ModelForm):
         model = FloorPlan
         fields = ('pdf', 'name', 'project_name')
 
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['project_name'].queryset = Project.objects.filter(user=user)
 
 class HotspotForm(forms.ModelForm):
     class Meta:
         model = Hotspot
         fields = ['name', 'x', 'y']
 
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['name', 'description', 'floor', 'room', 'due_date', 'priority', 'assigned', 'virtual_tour', 'project_name']
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['project_name'].queryset = Project.objects.filter(user=user)
