@@ -13,8 +13,8 @@
     <h1 class="text-black text-2xl font-semibold m-5">Projects
         <span>
             <p class="text-zinc-500 text-xl font-normal">Active</p>
-        </span>
-        <h1 class=" mx-5">Projects Created <span class="font-bold">{{ project_count }}</span></h1>
+        <!-- </span>
+        <h1 class=" mx-5">Projects Created <span class="font-bold">{{ project_count }}</span></h1> -->
     </h1>
 
    
@@ -71,26 +71,56 @@
             </div>
     
             {% for project in projects %}
+            <div class=" transition-transform transform hover:scale-105">
+                
+                    <div class="rounded-t-xl w-fit text-sm px-3 h-fit text-white bg-indigo-700"> {{ project.project_name }}
+
+                    </div>
+                    <!-- <div class="rounded-t-xl w-fit text-sm px-4 h-fit text-white "> <a href="{% url 'edit_project' project.slug %}" ><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M14.5 5.5L3 17 3 21 7 21 18.5 9.5zM21.2 2.8c-1.1-1.1-2.9-1.1-4 0L16 4l4 4 1.2-1.2C22.3 5.7 22.3 3.9 21.2 2.8z"></path>
+                        </svg></a>
+
+                    </div> -->
+              
             <!-- Create a parent container for the project card and "Edit" link -->
-            <div class="relative bg-white shadow-md rounded-lg p-4 hover:bg-zinc-50 transition-transform transform hover:scale-105">
-                <a href="{% url 'project_detail' project.slug %}">
-                    <img class="w-full h-36 object-cover rounded-md mb-2" src="{% static 'img/Auswahl.jpg' %}" alt="Project Image">
-                    <h2 class="text-lg font-semibold text-indigo-600">{{ project.project_name }}</h2>
+            <div class=" bg-blue-700 rounded-md ">
+                <a href="{% url 'virtual_tour' project.slug %}">
+
+                    <div class="relative">
+                        <img class="w-full rounded-ss-none bg h-36 object-cover  rounded-md" src="{% static 'pic.jpg' %}" alt="Project Image">
+                        <div class="absolute top-0 right-0 p-2">
+                          <a href="{% url 'edit_project' project.slug %}">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.9998 5.60156C6.5798 5.60156 6.2998 5.88156 6.2998 6.30156V9.80156C6.2998 10.2216 6.5798 10.5016 6.9998 10.5016C7.4198 10.5016 7.6998 10.2216 7.6998 9.80156V6.30156C7.6998 5.88156 7.4198 5.60156 6.9998 5.60156Z" fill="white"/>
+                                <path d="M6.9998 4.9C7.3864 4.9 7.6998 4.5866 7.6998 4.2C7.6998 3.8134 7.3864 3.5 6.9998 3.5C6.61321 3.5 6.2998 3.8134 6.2998 4.2C6.2998 4.5866 6.61321 4.9 6.9998 4.9Z" fill="white"/>
+                                <path d="M7 0C3.15 0 0 3.15 0 7C0 10.85 3.15 14 7 14C10.85 14 14 10.85 14 7C14 3.15 10.85 0 7 0ZM7 12.6C3.92 12.6 1.4 10.08 1.4 7C1.4 3.92 3.92 1.4 7 1.4C10.08 1.4 12.6 3.92 12.6 7C12.6 10.08 10.08 12.6 7 12.6Z" fill="white"/>
+                              </svg>
+                          </a>
+                        </div>
+                      </div>
+                                          
+                    <!-- <h2 class="text-lg font-semibold text-indigo-600">{{ project.project_name }}</h2>
                     <p class="text-xs text-gray-700">Project Size: {{ project.project_size }}</p>
                     <p class="text-xs text-gray-700">Project Address: {{ project.project_address }}</p>
                     <p class="text-xs text-gray-700">Add Members: {{ project.add_members }}</p>
                     <p class="text-xs text-gray-700">Group: {{ project.group }}</p>
                     <p class="text-xs text-gray-700">Project Manager: {{ project.project_manager }}</p>
                     <p class="text-xs text-gray-700">Date: {{ project.date }}</p>
-                    <p class="text-xs text-gray-700">Created at: {{ project.created_at|date:"Y-m-d" }}</p>
+                    <p class="text-xs text-gray-700">Created at: {{ project.created_at|date:"Y-m-d" }}</p> -->
                 </a>
                 
                 <!-- "Edit" link with absolute positioning -->
-                <a href="{% url 'edit_project' project.slug %}" class=" text-xs text-indigo-600 hover:text-indigo-800">Edit</a>
-                <a href="{% url 'virtual_tour' project.slug %}" class="bg-indigo-600 text-white p-2 rounded-md mt-2 block hover:bg-indigo-700 text-center">Go to Virtual Tour</a>
+                
+                <!-- <a href="{% url 'virtual_tour' project.slug %}" class="bg-indigo-600 text-white p-2 rounded-md mt-2 block hover:bg-indigo-700 text-center">Go to Virtual Tour</a> -->
 
             </div>
+        </div>
             {% endfor %}
+
+
+
+
+
         </div>
     </div>
     

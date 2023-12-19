@@ -95,6 +95,8 @@ class Hotspot(models.Model):
     x = models.IntegerField()
     y = models.IntegerField()
     floorplan = models.ForeignKey(FloorPlan, on_delete=models.CASCADE)
-    images = models.ManyToManyField('ImageModel')
+    image = models.ImageField(upload_to='hotspot_images/', blank=True, null=True)
+
+    
     def __str__(self):
         return self.name

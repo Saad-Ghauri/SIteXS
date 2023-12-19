@@ -14,19 +14,27 @@
     </span>
 </h1>
     
-    <h1 class="text-black text-2xl font-semibold m-5">Overview</h1>
+    <h1 class="text-black text-2xl font-['Inter'] font-semibold m-5">Overview</h1>
 
 <!-- the big flex main content card flex starts here -->
-<div class="flex justify-between px-3 items-baseline space-x-16 flex-wrap"> 
+<div class="flex justify-between items-baseline px-5"> 
+
+    
+<div class="class flex flex-col gap-y-5">
+
+
+
+    <div class="flex  ">
 
     <!-- first card overview starts -->
-<div class="h-52 w-72 rounded-2xl  shadow-lg  font-['Plus Jakarta Sans']">
+<div class="h-52 w-min rounded-2xl  shadow-lg  font-['Plus Jakarta Sans']">
     <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
 
     <div class="flex justify-between">
-        <div class="m-4 text-black text-xl font-semibold">Tasks <h1 class="text-5xl font-bold">{{ task_count }}</h1></div>
+        <div class="m-4 text-black text-xl  font-['Inter']">Tasks <h1 class="text-5xl font-bold">{{ task_count }}</h1></div>
         
-       <div> <svg class="m-4" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <div> 
+        <svg class="m-4" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.3701 8.87988H17.6201" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M6.37988 8.87988L7.12988 9.62988L9.37988 7.37988" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M12.3701 15.8799H17.6201" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -57,7 +65,7 @@
 
 
 <!-- the second card starts here  -->
-<div class="w-[300px] h-52  rounded-2xl shadow-lg">
+<div class="w-[300px] rounded-2xl shadow-lg">
     <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
 
     <div class="flex justify-between">
@@ -80,7 +88,43 @@
 
 
 
+</div>
 
+
+<div class="flex ">
+
+
+    <div class="h-[200px] w-full rounded-2xl  shadow-md  font-['Plus Jakarta Sans']">
+        <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+    
+       
+    
+    
+    
+    </div>
+
+
+
+
+
+    <div class=" w-full rounded-2xl  shadow-md  font-['Plus Jakarta Sans']">
+        <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+    
+       
+    
+    
+    
+    </div>
+    <!-- the first card overview ends -->
+    
+    
+ 
+</div>
+
+
+
+
+</div>
 
 
 
@@ -92,19 +136,29 @@
 
 
 
+<div >
+    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">TBD</h1>
+
+    <div class="w-32 h-full shadow-md h-full">
+        
+
+    </div>
+
+
+</div>
 
     
- 
 
 
+
  
-<div class="w-[300px] h-fit py-3  rounded-2xl shadow-lg ">
+<div class="w-[300px] font-['Inter'] h-fit  py-3  rounded-2xl shadow-lg ">
     <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
 
    <h1 class="m-5 text-gray-900 text-sm font-light font-['Inter'] leading-[21px]">Task Today
-    <img src="Image.jpg" alt="" srcset="">
+    <img src="{% static 'img\Auswahl.jpg' %}" class="" alt="" srcset="">
    </h1>
-   <h1 class="mx-5 flex justify-between items-center">Checking “Remove trash”
+   <h1 class="mx-5 flex justify-between font-['Inter'] items-center">Checking “Remove trash”
     <div>
         <img src="🦆 icon _virtual reality image thin_.svg" alt="" srcset="">
     </div>
@@ -137,8 +191,72 @@
   
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 <!-- the big flex main content card flex ends here -->
+
+
+
+
+<div class="py-5 px-2">
+    <div class="rounded-t-xl w-fit text-sm px-4 h-fit text-white bg-indigo-700"> Weather Forecast
+
+    </div>
+
+<div class="w-full py-5 rounded-lg shadow-md ">
+<div class="flex justify-between space-x-3 flex-wrap ">
+
+
+    {% for day in days %}
+
+<div class="flex flex-col bg-white justify-center space-y-2 items-center py-4 px-4 w-fit rounded-lg shadow-lg">
+
+    <div class="flex "><svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.1363 7.31536C11.1363 10.177 8.39476 12.1676 7.29848 12.8491C7.02292 13.0205 6.6837 13.0205 6.40813 12.8491C5.31185 12.1676 2.57031 10.177 2.57031 7.31536C2.57031 4.57146 4.64557 2.74219 6.85331 2.74219C9.13757 2.74219 11.1363 4.57146 11.1363 7.31536Z" stroke="#222222"/>
+        <path d="M8.63689 7.31793C8.63689 8.42021 7.80768 9.25696 6.85262 9.25696C5.89757 9.25696 5.06836 8.42021 5.06836 7.31793C5.06836 6.21566 5.89757 5.37891 6.85262 5.37891C7.80768 5.37891 8.63689 6.21566 8.63689 7.31793Z" stroke="#222222"/>
+        </svg>
+        <span class="text-black font-normal text-xs">Frankfurt am Main</span></div>
+        <div class="text-black text-xs font-bold font-['Inter']">{{ day }}</div>
+    <div><svg width="50" height="51" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25.3398" r="25" fill="#FFDC60"/>
+        </svg>
+        </div>
+    <div class="text-black text-2xl font-bold font-['Inter']">24°</div>
+    <div class="text-black text-xs w-min font-['Inter']">Showers and Thunderstorms</div>
+
+</div>
+{% endfor %}
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
 
 
 {% endblock %}

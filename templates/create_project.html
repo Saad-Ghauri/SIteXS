@@ -54,7 +54,7 @@
   </form> -->
   <div class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
     <div class="bg-white shadow-md w-80 px-4 py-2 rounded-lg flex justify-center items-center">
-        <form method="post">
+        <form method="post" id="myForm" onsubmit="submitForm(event)">
             {% csrf_token %}
 
             <div class="mb-2">
@@ -92,7 +92,7 @@
         
           <div class="flex flex-col">
               <label for="date" class="text-indigo-600 font-semibold mb-1">Date</label>
-              <input type="text" id="date" name="date" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="yyyy-mm-dd">
+              <input type="date" id="date" name="date" class="w-60 shadow-md px-3 py-1 border rounded-lg" placeholder="yyyy-mm-dd">
               {% if form.errors %}
                   <div class="text-red-500 text-xs">{{ form.errors.date }}</div>
               {% endif %}
@@ -106,7 +106,69 @@
     </div>
 </div>
 
-<!-- Your other content goes here -->
+<div id="loader" class="hidden fixed top-0 left-0 w-screen h-screen flex items-center justify-center z-50 bg-white bg-opacity-50 ">
+  
+  <div class="bg-white shadow-md w-1/2 px-4 py-2 h-1/6 rounded-xl flex justify-center items-center">
+    
+    <!-- Loader content -->
+    <div class="w-full flex flex-col justify-center items-center">
+      
+      
+      <div class="flex items-center justify-between gap-4 mb-2">
+       
+        <!-- <h6 id="completionPercentage" class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+          0%
+        </h6> -->
+      </div>
+      <div class="flex-start flex h-5 w-full overflow-hidden rounded-full bg-blue-gray-50 font-sans text-xs font-medium">
+        <div id="progressBar" class="flex items-center justify-center w-0 h-full overflow-hidden text-white  break-all bg-indigo-700 rounded-full">
+          <h6 class="block text-center text-white  font-normal font-['Inter']">
+            UPLOADING
+          </h6>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function submitForm(event) {
+    event.preventDefault();
+
+    // Display loader while submitting the form
+    document.getElementById('loader').style.display = 'flex';
+
+    // Simulate form submission delay (you can replace this with your actual form submission logic)
+    setTimeout(() => {
+      // Simulate upload progress
+      let progress = 0;
+      const progressBar = document.getElementById('progressBar');
+      const completionPercentage = document.getElementById('completionPercentage');
+
+      const interval = setInterval(() => {
+        if (progress >= 100) {
+          clearInterval(interval);
+          // Hide the loader after form submission and upload are complete
+          document.getElementById('loader').style.display = 'none';
+          // Add any logic you need when the upload is complete
+          console.log('Form submitted successfully!');
+          // Redirect to a URL after success (replace 'your-redirect-url' with the actual URL)
+          document.getElementById('myForm').submit();
+        } else {
+          // Update progress bar and percentage
+          progress += 1; // Adjust this value based on your needs
+          progressBar.style.width = `${progress}%`;
+          completionPercentage.innerText = `${progress}%`;
+        }
+      }, 20); // Simulated interval, adjust as needed
+    }, 1); // Simulated delay of 2 seconds
+  }
+</script>
+
+
 
 <script>
     // JavaScript function to show the modal

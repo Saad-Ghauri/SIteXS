@@ -53,3 +53,4 @@ class HotspotForm(forms.ModelForm):
     class Meta:
         model = Hotspot
         fields = ['name', 'x', 'y']
+

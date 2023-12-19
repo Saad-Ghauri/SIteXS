@@ -24,5 +24,7 @@ urlpatterns = [
     path('hotspot-form/<int:floorplan_id>/', views.hotspot_form, name='hotspot_form'),
     path('save_hotspot/', views.save_hotspot, name='save_hotspot'),
     path('load_hotspots/<int:floorplan_id>/', views.load_hotspots, name='load_hotspots'),
-
+    
+    
+    
 ]

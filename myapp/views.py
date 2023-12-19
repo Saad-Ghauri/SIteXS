@@ -95,18 +95,18 @@ def virtual_tour(request, project_slug):
             image = image_form.save(commit=False)
             image.project = project
             image.user = request.user  # If you want to associate the user
+            hotspot_id = request.POST.get('hotspot_id')
+        if hotspot_id:
+            hotspot = Hotspot.objects.get(id=hotspot_id)
+            image.hotspot = hotspot
             image.save()
-        elif marker_form.is_valid():
-            marker = marker_form.save(commit=False)
-            marker.image = images.first()  # Replace with the correct image
-            marker.save()
+       
         return redirect('virtual_tour', project_slug=project.slug)  # Redirect back to the virtual tour
 
     else:
         image_form = ImageForm()
-        marker_form = MarkerForm()
 
-    return render(request, 'virtual_tour.html', {'project': project, 'images': images, 'image_form': image_form, 'marker_form': marker_form, 'floorplans': floorplans})
+    return render(request, 'virtual_tour.html', {'project': project, 'images': images, 'image_form': image_form, 'floorplans': floorplans})
 
 @csrf_exempt
 def markers(request):
@@ -246,9 +246,16 @@ def dash(request):
     task_count = Task.objects.filter(user=request.user).count()
     # projects = Project.objects.all().order_by('-created_at')
     projects = Project.objects.filter(user=request.user).order_by('-created_at')
+
+
+   
+    days = [
+            'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satuarday', 'Sunday'
+        ]
     
     
-    return render(request, 'over.html', {'task_count': task_count, 'projects': projects})  # Replace 'dashboard.html' with your actual dashboard template
+    
+    return render(request, 'over.html', {'task_count': task_count, 'projects': projects, 'days': days})  # Replace 'dashboard.html' with your actual dashboard template
 
 
 
@@ -305,3 +312,6 @@ def save_hotspot(request):
 def load_hotspots(request, floorplan_id):
     hotspots = Hotspot.objects.filter(floorplan_id=floorplan_id).values('name', 'x', 'y')
     return JsonResponse(list(hotspots), safe=False)
+
+
+
