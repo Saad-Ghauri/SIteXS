@@ -8,155 +8,126 @@
 
 {% block content %}
 
-<h1 class="text-black text-2xl font-semibold m-5">Hello {{ user.username }}
+<h1 class="text-black text-2xl font-semibold mx-5 my-2">Hello {{ user.username }}
     <span>
         <p class="text-zinc-500 text-xl font-normal">Here is your daily report</p>
     </span>
 </h1>
     
-    <h1 class="text-black text-2xl font-['Inter'] font-semibold m-5">Overview</h1>
+    <h1 class="text-black text-2xl font-['Inter'] font-semibold mx-5 my-2">Overview
 
-<!-- the big flex main content card flex starts here -->
-<div class="flex justify-between items-baseline px-5"> 
+    </h1>
 
-    
-<div class="class flex flex-col gap-y-5">
+<div class="flex justify-between  h-1/2 gap-x-2 px-5">
 
 
 
-    <div class="flex  ">
 
-    <!-- first card overview starts -->
-<div class="h-52 w-min rounded-2xl  shadow-lg  font-['Plus Jakarta Sans']">
-    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
 
-    <div class="flex justify-between">
-        <div class="m-4 text-black text-xl  font-['Inter']">Tasks <h1 class="text-5xl font-bold">{{ task_count }}</h1></div>
+<div class="flex flex-col gap-y-10  container w-1/2">
+
+    <div class="flex gap-x-2 w-full h-full ">
+     
+
+        <div class=" rounded-2xl  w-full shadow-lg  ">
+            <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
         
-       <div> 
-        <svg class="m-4" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.3701 8.87988H17.6201" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.37988 8.87988L7.12988 9.62988L9.37988 7.37988" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12.3701 15.8799H17.6201" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.37988 15.8799L7.12988 16.6299L9.37988 14.3799" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-</div>
-    <div class="flex-col flex items-start mx-5 ">
-        
+           <div class=" w-full h-full">
+            <div class="flex justify-between p-4">
+                <div class=" text-black text-xl  font-['Inter']">Open Tasks </div>
 
+                
+               <div> 
+                <h1 class="text-xl font-bold">{{ task_count }}</h1>
+            </div>
+        </div>
+           
 
-        <div><div class="w-[188px] h-[7px] relative">
-            <div class="w-[188px] h-[7px] left-0 top-0 absolute bg-slate-300 rounded-[31px]"></div>
-            <div class="w-[133px] h-[7px] left-0 top-0 absolute bg-violet-600 rounded-[31px]"></div>
-        </div></div>
-        <h3>Finished Tasks</h3>
-    </div>
-    
+        <div class="px-4">
+            This week
+        </div>
             
-      
-
-
-
-
-</div>
-<!-- the first card overview ends -->
-
-
-<!-- the second card starts here  -->
-<div class="w-[300px] rounded-2xl shadow-lg">
-    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
-
-    <div class="flex justify-between">
-        <div class="m-4 text-black text-xl font-semibold">Activity</div>
+                    
+           </div>
+              
         
-     <div> 
-        <h1 class="text-xs font-normal m-4">This Week</h1>
-    </div>
-
-</div>
-<!-- the second card ends here -->
+        
+        
+        
+        </div>
 
 
 
-
-
-
-      
-</div>
-
-
-
-</div>
-
-
-<div class="flex ">
-
-
-    <div class="h-[200px] w-full rounded-2xl  shadow-md  font-['Plus Jakarta Sans']">
-        <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+        <div class="w-full rounded-2xl shadow-lg h-full">
+            <div class="rounded-t-xl w-fit text-sm px-4 h-fit text-white bg-indigo-700"> TBD
     
-       
-    
-    
-    
+            </div>
+            <div class=" "></div>
+        </div>
+
     </div>
 
 
 
 
+    <div class="flex w-full h-full ">
 
-    <div class=" w-full rounded-2xl  shadow-md  font-['Plus Jakarta Sans']">
-        <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+
+        <div class="w-full rounded-2xl shadow-lg h-full">
+            <div class="rounded-t-xl w-fit text-sm px-4 h-fit text-white bg-indigo-700">TBD
     
-       
-    
-    
-    
-    </div>
-    <!-- the first card overview ends -->
-    
-    
- 
-</div>
+            </div>
+            <div class=" rounded-2xl  flex justify-between  w-full h-52">
 
 
-
-
-</div>
-
-
-
-
-
-<!-- the second card ends here -->
-
-
-
-
-
-<div >
-    <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">TBD</h1>
-
-    <div class="w-32 h-full shadow-md h-full">
+            </div>
+        </div>
         
 
     </div>
 
-
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+    <div class="w-1/4 h-full">
+        <div class="rounded-t-xl w-fit text-sm px-4 h-fit text-white bg-indigo-700"> TBD
+
+        </div>
+        <div class="rounded-2xl shadow-lg w-full h-full"></div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
     
-
-
-
- 
-<div class="w-[300px] font-['Inter'] h-fit  py-3  rounded-2xl shadow-lg ">
     <h1 class="bg-indigo-600 text-white text-xs w-fit px-2 text-center font-semibold  rounded-t-lg">Tasks</h1>
+    <div class="w-full font-['Inter'] h-min px-3 py-3  rounded-2xl shadow-lg ">
 
    <h1 class="m-5 text-gray-900 text-sm font-light font-['Inter'] leading-[21px]">Task Today
-    <img src="{% static 'img\Auswahl.jpg' %}" class="" alt="" srcset="">
+    <img src="{% static 'img\Auswahl.jpg' %}" class="w-60" alt="" srcset="">
    </h1>
    <h1 class="mx-5 flex justify-between font-['Inter'] items-center">Checking “Remove trash”
     <div>
@@ -179,7 +150,8 @@
     
    </ul>
 
-   <div class="mt-5 flex justify-center items-center "><button class=" bg-indigo-400 px-20 py-2 rounded-lg font-semibold text-white">Go To Detail</button></div>
+   <div class="mt-5 flex justify-center items-center "><button class=" bg-indigo-600 py-3 w-full rounded-lg font-semibold text-white">Go To Detail</button></div>
+</div>
 </div>
 
 
@@ -188,6 +160,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+</div>
   
 
 
@@ -200,34 +182,18 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-</div>
-<!-- the big flex main content card flex ends here -->
-
-
-
-
 <div class="py-5 px-2 drop-shadow-2xl">
     <div class="rounded-t-xl w-fit text-sm px-4 h-fit text-white bg-indigo-700"> Weather Forecast
 
     </div>
 
-<div class="w-full py-5 rounded-lg drop-shadow-2xl bg-white">
+<div class="w-full py-5 rounded-lg  bg-white">
 <div class="flex justify-between space-x-3 flex-wrap ">
 
 
     {% for day in days %}
 
-<div class="flex flex-col bg-white justify-center space-y-2 items-center py-4 px-4 w-fit rounded-lg shadow-lg">
+<div class="flex flex-col bg-white justify-center space-y-2 items-center py-4 px-4 w-fit rounded-lg drop-shadow-md">
 
     <div class="flex "><svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M11.1363 7.31536C11.1363 10.177 8.39476 12.1676 7.29848 12.8491C7.02292 13.0205 6.6837 13.0205 6.40813 12.8491C5.31185 12.1676 2.57031 10.177 2.57031 7.31536C2.57031 4.57146 4.64557 2.74219 6.85331 2.74219C9.13757 2.74219 11.1363 4.57146 11.1363 7.31536Z" stroke="#222222"/>

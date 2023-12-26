@@ -15,7 +15,7 @@
     </head>
 
     <body class="">
-        <header class="bg-white/60 backdrop-blur-md fixed top-0 w-full z-50 py-4">
+        <header class="bg-white/60 backdrop-blur-md  top-0 w-full z-50 py-4">
             <nav class="container mx-auto flex justify-between items-center">
                 <a href="{% url 'home' %}" class="px-2 sm:px-4">
                     <div class="sm:w-24 "><svg width="106" height="50" viewBox="0 0 106 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,16 +51,17 @@
                             Contact us
                         </a>
                     </li>
-                    <li class="group relative">
-                        <a href="{% url 'login' %}" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                    <li class="group relative bg-zinc-500 px-2 hover:bg-zinc-700 flex items-center text-sm text-center text-white rounded-full">
+                        <a href="{% url 'login' %}" class="">
                             Sign In
                         </a>
                     </li>
-                    <li class="group relative">
-                        <a href="{% url 'register' %}" class="hover:text-gray-800 focus:text-gray-800 group-hover:border-gray-800 group-hover:bg-gray-200 px-2 py-1 rounded">
+                    <li class="group relative bg-zinc-500 px-2 hover:bg-zinc-700 flex items-center text-sm text-center text-white rounded-full">
+                        <a href="{% url 'register' %}" class="">
                             Register
                         </a>
-                    </li> </ul>
+                    </li>
+                   </ul>
             </nav>
         
             <!-- Mobile Menu (Hidden by default) -->
@@ -103,14 +104,14 @@
         </script>
         
         
-
+     
        
 
 
 
         <section class=" min-h-screen ">
 
-           <div class="flex flex-col justify-center   gap-y-6 min-h-screen">
+           <div class="flex flex-col justify-around h-10   gap-y-6 min-h-screen">
 
           
             <div class="flex">
@@ -129,60 +130,83 @@
 
             </div>
         </section>
+        <div class="w-full h-min bg-indigo-600 py-1"></div>
         
+       <section class="min-h-screen flex bg-indigo-600 flex-row">
         
-        <section class="bg-indigo-900 text-gray-50">
-            <div class="container mx-auto py-16 text-center">
-                <h2 class="text-4xl font-bold">Construction Progress Management At Work</h2>
-                <p class="text-xl mt-4 font-light">SiteX™ is the platform that allows your stakeholders—operations, finance, safety, owners, VDC, architects, trade partners, inspectors, and investors—to gain remote access to your construction sites, and see all details of the current and historical progress in 360°.</p>
-                <div class="my-10">
-                    <video autoplay muted loop class="w-full rounded-2xl shadow-2xl">
-                        <source src="v2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+            <div class="basis-1/2 "></div>
+            <div class="basis-1/2 px-5 flex flex-col justify-center space-y-4 items-center">
+                
+                <div class="flex items-baseline">
+
+                    <div class="text-white text-6xl font-light  w-1/2 items-start leading-[80px]">HOW DOES 
+                        WORKS?
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                    <div class="hover:ring-black hover:shadow-2xl bg-opacity-25 rounded-lg ring ring-purple-950 ring-opacity-50 shadow-md p-6">
-                        <h3 class="text-2xl font-bold">Capture</h3>
-                        <p class="mt-4">Capture your jobsite in the most efficient and effective way possible. HoloBuilder’s JobWalk App guides the process to effortlessly capture 360° and 2D photos, automatically organized by project, floor plan, and date/time.</p>
-                    </div>
-                    <div class="hover:ring-black hover:shadow-2xl bg-opacity-25 rounded-lg ring ring-purple-950 ring-opacity-50 shadow-md p-6">
-                        <h3 class="text-2xl font-bold">View</h3>
-                        <p class="mt-4">Explore your construction site in stunning 360° from anywhere, at any time. With SiteX, photos become available instantly, providing you with the assurance that your project is fully documented and recorded for photographic proof of progress. Access images on-demand, whenever and wherever you need them.</p>
-                    </div>
-                    <div class="hover:ring-black hover:shadow-2xl bg-opacity-25 rounded-lg ring ring-purple-950 ring-opacity-50 shadow-md p-6">
-                        <h3 class="text-2xl font-bold">Control</h3>
-                        <p class="mt-4">Take full control over your construction project with SiteX's powerful tools at your fingertips. Easily compare 360° photos side-by-side with your BIM models, historical images, and project schedules to ensure progress aligns with plans. Annotate, mark-up, and tag photos to coordinate tasks seamlessly, all within a single source of truth.</p>
-                    </div>
+
+
+                <div class=""><svg class="" width="192" height="52" viewBox="0 0 192 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M191.7 4.55765C191.7 2.04053 189.66 0 187.143 0H144.605C142.087 0 140.047 2.04053 140.047 4.55764V47.0957C140.047 49.6128 142.087 51.6533 144.605 51.6533H187.143C189.66 51.6533 191.7 49.6128 191.7 47.0957V4.55765ZM183.333 44.1387C184.045 45.1832 184.544 45.8953 184.829 46.2751C184.924 46.4176 185.09 46.6312 185.327 46.9161C185.474 47.0634 185.622 47.2198 185.769 47.3854C185.952 47.5913 186.147 47.7864 186.354 47.969C186.504 48.1015 186.636 48.2253 186.751 48.3403C186.822 48.3965 186.886 48.4465 186.943 48.4902C187.139 48.638 187.361 48.7676 187.606 48.7676C187.887 48.7676 188.105 48.5506 188.114 48.2695C188.129 47.7894 187.96 47.1246 187.606 46.2751C187.131 45.0882 186.467 43.7589 185.612 42.2872C184.757 40.8155 183.784 39.2488 182.692 37.5871C181.648 35.9255 180.603 34.3113 179.559 32.7446C178.562 31.1779 177.636 29.7537 176.782 28.4718C175.975 27.1425 175.429 26.0981 175.144 25.3385C174.906 24.7213 175.12 23.8667 175.785 22.7748C176.497 21.6354 177.375 20.4247 178.42 19.1429C179.464 17.8611 180.58 16.5318 181.767 15.155C183.001 13.7782 184.022 12.5201 184.829 11.3807C185.683 10.2413 186.229 9.26801 186.467 8.46092C186.751 7.60636 186.467 7.08413 185.612 6.89423C184.473 6.60938 183.381 6.87049 182.336 7.67758C181.292 8.43718 180.342 9.41043 179.488 10.5973C178.681 11.7367 177.969 12.8999 177.351 14.0868C176.734 15.2737 176.259 16.0807 175.927 16.508C175.832 16.6504 175.666 16.8641 175.429 17.1489C175.191 17.4338 174.954 17.7661 174.716 18.1459C174.479 18.4782 174.242 18.7868 174.004 19.0717C173.687 19.4523 173.285 19.9042 172.829 19.7104C172.534 19.5852 172.214 19.3248 171.868 18.9293C171.251 18.1697 170.562 17.1727 169.803 15.9383C169.091 14.6565 168.331 13.2797 167.524 11.8079C166.764 10.2887 166.005 8.93568 165.245 7.74879C164.533 6.51443 163.845 5.56492 163.18 4.90026C162.799 4.49213 162.449 4.26332 162.131 4.21385C161.667 4.14188 161.347 4.61923 161.331 5.0879C161.329 5.14134 161.328 5.19748 161.328 5.25633C161.328 5.78878 161.571 6.2983 161.805 6.77651C161.855 6.8775 161.909 6.98795 161.969 7.10787C162.302 7.67758 162.658 8.29476 163.037 8.95941C163.417 9.5766 163.75 10.17 164.034 10.7397C164.367 11.262 164.58 11.5943 164.675 11.7367C164.865 12.0691 165.198 12.6862 165.672 13.5883C166.147 14.4903 166.622 15.4636 167.097 16.508C167.619 17.505 168.094 18.4782 168.521 19.4278C168.864 20.0788 169.132 20.5938 169.326 20.9728C169.455 21.2236 169.564 21.4856 169.613 21.7631C169.77 22.6526 169.643 23.6307 169.233 24.6975C168.758 25.8844 168.046 27.1663 167.097 28.543C166.147 29.8724 165.055 31.2492 163.821 32.6734L160.118 36.8038C158.883 38.1331 157.72 39.4149 156.628 40.6493C155.584 41.8362 154.777 42.9044 154.207 43.8539C153.827 44.5185 153.614 45.1832 153.566 45.8479C153.531 46.2985 153.56 46.6859 153.652 47.0099C153.717 47.239 153.835 47.4622 154.035 47.5909C154.249 47.7287 154.52 47.7649 154.848 47.6994C155.37 47.6045 155.964 47.1297 156.628 46.2751C159.097 43.1418 161.518 40.1033 163.892 37.1598C166.171 34.3344 168.712 31.5965 171.515 28.946C171.749 28.7249 172.045 28.5257 172.325 28.6852C172.56 28.8195 172.859 29.0807 173.221 29.4688C173.886 30.1335 174.645 31.0592 175.5 32.2461C176.354 33.433 177.256 34.7623 178.206 36.2341C179.203 37.7058 180.129 39.1301 180.983 40.5069C181.885 41.8837 182.669 43.0943 183.333 44.1387Z" fill="white"/>
+                    <path d="M25.5976 51.7379C20.2355 51.7379 15.4883 51.4919 11.3561 51C7.22381 50.5081 4.24759 50.0161 2.42743 49.5242V48.0484L0.951619 40.1528C1.64033 40.9399 2.94396 41.7762 4.86251 42.6617C6.83026 43.5472 9.43752 44.3097 12.6843 44.9492C15.9311 45.5395 19.7928 45.8347 24.2694 45.8347C28.3033 45.8347 31.3533 45.5641 33.4194 45.023C35.5347 44.4326 36.9614 43.6456 37.6993 42.6617C38.4864 41.6286 38.8799 40.448 38.8799 39.1197C38.8799 37.5455 38.2404 36.2911 36.9614 35.3564C35.6823 34.4217 33.7638 33.6838 31.2057 33.1427C28.6968 32.5524 25.573 32.0359 21.8343 31.5931C16.9641 30.9536 13.0533 30.1173 10.1016 29.0842C7.15002 28.002 5.01009 26.5754 3.68187 24.8044C2.35364 23.0334 1.68952 20.7951 1.68952 18.0895C1.68952 15.7774 2.37823 13.7112 3.75566 11.8911C5.18227 10.0709 7.3222 8.64428 10.1754 7.61121C13.0287 6.52895 16.669 5.98782 21.0964 5.98782C26.2126 5.98782 30.6646 6.23379 34.4525 6.72572C38.2404 7.21766 40.9215 7.70959 42.4956 8.20153V9.67734L44.7094 16.3185C43.6763 15.679 42.0775 15.0149 39.913 14.3261C37.7977 13.6374 35.2396 13.0717 32.2388 12.629C29.238 12.137 25.8928 11.8911 22.2033 11.8911C19.1533 11.8911 16.7182 12.1124 14.898 12.5552C13.127 12.9979 11.848 13.662 11.0609 14.5475C10.323 15.3838 9.95405 16.4169 9.95405 17.6467C9.95405 19.2701 10.5444 20.5737 11.725 21.5576C12.9549 22.5415 14.7258 23.304 17.0379 23.8451C19.3992 24.3862 22.2525 24.8536 25.5976 25.2471C30.9105 25.8375 35.1412 26.6737 38.2896 27.756C41.438 28.8383 43.7009 30.2895 45.0783 32.1096C46.4557 33.9298 47.1444 36.2911 47.1444 39.1935C47.1444 41.1121 46.6771 42.8585 45.7424 44.4326C44.8569 45.9577 43.5041 47.2859 41.684 48.4173C39.8638 49.4996 37.6009 50.3359 34.8952 50.9262C32.2388 51.4673 29.1396 51.7379 25.5976 51.7379ZM53.4945 51C53.8388 51 54.1586 50.6556 54.4537 49.9669C54.7981 49.2782 54.9703 48.1468 54.9703 46.5726V20.8935C54.9703 19.3193 54.7981 18.2124 54.4537 17.5729C54.1586 16.8842 53.8388 16.5153 53.4945 16.4661H62.4969V46.5726C62.4969 48.1468 62.6445 49.2782 62.9396 49.9669C63.284 50.6556 63.6283 51 63.9727 51H53.4945ZM57.9957 9.38218C56.5691 9.38218 55.4622 8.98863 54.6751 8.20153C53.888 7.36524 53.4945 6.40597 53.4945 5.3237C53.4945 4.19225 53.8634 3.23297 54.6013 2.44587C55.3884 1.65878 56.5199 1.26523 57.9957 1.26523C59.4715 1.26523 60.5783 1.65878 61.3162 2.44587C62.1033 3.23297 62.4969 4.19225 62.4969 5.3237C62.4969 6.40597 62.1033 7.36524 61.3162 8.20153C60.5291 8.98863 59.4223 9.38218 57.9957 9.38218ZM84.6738 51.7379C81.2795 51.7379 78.8198 51.0246 77.2948 49.598C75.7698 48.1222 75.0073 45.7363 75.0073 42.4403V21.6314H68.3661V16.4661C70.629 16.4661 72.4 16.1955 73.679 15.6544C74.9581 15.064 75.8682 14.0556 76.4093 12.629C76.9504 11.2023 77.221 9.21 77.221 6.65193H82.5339V16.4661H96.6279C96.2835 16.958 95.9392 17.6959 95.5948 18.6798C95.2996 19.6145 95.1521 20.5983 95.1521 21.6314H82.5339V41.3334C82.5339 43.5964 82.952 45.023 83.7883 45.6133C84.6246 46.2036 85.6823 46.4988 86.9613 46.4988C88.1912 46.4988 89.3226 46.2528 90.3557 45.7609C91.4379 45.2197 92.3726 44.5802 93.1597 43.8423C93.996 43.1044 94.6355 42.3911 95.0783 41.7024V43.9899L95.8162 48.196C95.3242 48.6879 94.5617 49.229 93.5287 49.8194C92.4956 50.3605 91.2412 50.8032 89.7654 51.1476C88.2895 51.5411 86.5924 51.7379 84.6738 51.7379ZM119.288 51.7379C115.402 51.7379 112.204 51.2952 109.695 50.4097C107.186 49.475 105.218 48.196 103.792 46.5726C102.365 44.9492 101.357 43.0552 100.766 40.8907C100.225 38.7262 99.9548 36.3649 99.9548 33.8068C99.9548 28.2479 101.529 23.8451 104.677 20.5983C107.875 17.3515 112.598 15.7282 118.845 15.7282C122.485 15.7282 125.412 16.2201 127.626 17.204C129.889 18.1878 131.586 19.4915 132.718 21.1149C133.898 22.7383 134.685 24.5092 135.079 26.4278C135.522 28.2971 135.743 30.1419 135.743 31.9621V35.4302C135.743 35.2826 135.054 35.1351 133.677 34.9875C132.349 34.7907 130.086 34.6923 126.888 34.6923H107.481C107.481 38.3326 108.564 41.2105 110.728 43.3258C112.893 45.4411 116.115 46.4988 120.395 46.4988C124.084 46.4988 127.11 46.056 129.471 45.1706C131.881 44.2359 133.48 43.3258 134.267 42.4403V43.9161L135.005 48.7863C133.923 49.4258 132.004 50.0899 129.25 50.7786C126.544 51.4181 123.223 51.7379 119.288 51.7379ZM110.433 29.8221H128.364C128.364 28.5431 128.094 27.2149 127.552 25.8375C127.011 24.46 126.052 23.304 124.675 22.3693C123.297 21.3854 121.354 20.8935 118.845 20.8935C116.73 20.8935 114.885 21.2624 113.311 22.0003C111.737 22.6891 110.507 23.5991 109.621 24.7306C108.785 25.8621 108.367 27.0673 108.367 28.3463C108.367 28.8383 108.514 29.2072 108.81 29.4532C109.105 29.6992 109.646 29.8221 110.433 29.8221Z" fill="white"/>
+                    </svg>
+
                 </div>
+
+
+                </div>
+                <div class="text-white text-xl font-light">Discover the power of virtual tours to view, manage, and share project progress seamlessly. Revolutionize your construction workflow and ensure success at every step of the way.
+                </div>
+          </div>
+       </section>
+        
+
+
+
+       <section class="min-h-screen bg-white  ">
+        <div class="flex justify-center min-h-screen bg-white items-center">
+        <div class="grid sm:grid-cols-4 sm:gap-10  grid-cols-1">
+    
+        
+         
+          
+          
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
             </div>
-        </section>
-        
-        <section class="bg-gray-100 h-screen">
-            <div class="container mx-auto py-16 text-center">
-                <h2 class="text-4xl font-bold">Your Progress Management Hub</h2>
-                <p class="text-xl font-light mt-4">Everything that you need to track your jobsite’s progress in one central progress record.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-                    <div class="bg-white shadow-md rounded-2xl hover:shadow-2xl transform transition-transform duration-300 hover:-translate-y-2">
-                        <img class="w-full h-48 object-cover rounded-t-2xl" src="bghalmet.jpg" alt="Image">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Accelerate Your Project’s Progress</h3>
-                            <p class="text-sm text-gray-600">Manage progress with 360° photos, organized by time and location, on your floor plans. Mark up photos, share instructions, and close out comments in 360°!</p>
-                        </div>
-                    </div>
-                    <!-- Repeat the above block for the remaining cards -->
-                </div>
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
             </div>
-        </section>
-        
-        <section class="bg-slate-50 h-screen"></section>
-        
-        <section class="bg-gray-900 h-screen mt-10"></section>
-        
-
-
-
-
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
+            </div>
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
+            </div>
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
+            </div>
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
+            </div>
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
+            </div>
+            <div class="bg-indigo-600 sm:p-3  sm:h-[200px] sm:w-[200px] h-fit w-fit sm:rounded-3xl flex flex-col justify-center items-center text-white">
+                <div>innovation</div>
+                <div class="w-fit text-center">Receive your data digitally in true as-built quality.</div>
+            </div>
+    
+           
+        </div>
+    </div>
+    </section>
+    
 
 
 

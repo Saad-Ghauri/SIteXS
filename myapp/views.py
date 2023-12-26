@@ -305,3 +305,5 @@ def load_hotspots(request, floorplan_id):
 
 
 
+
+

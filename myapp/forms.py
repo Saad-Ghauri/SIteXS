@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 from django import forms
-from .models import FloorPlan, Hotspot, Marker, Task
+from .models import FloorPlan, Hotspot, Marker, Task, UserProfile
 from .models import Project,Image
 
 
@@ -61,3 +61,11 @@ class TaskForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['project_name'].queryset = Project.objects.filter(user=user)
+
+
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture']
