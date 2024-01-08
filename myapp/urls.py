@@ -25,6 +25,9 @@ urlpatterns = [
     path('save_hotspot/', views.save_hotspot, name='save_hotspot'),
     path('load_hotspots/<int:floorplan_id>/', views.load_hotspots, name='load_hotspots'),
     
-    
-    
+    path('update_task/<int:task_id>/', views.update_task, name='update_task'),
+    path('task/', views.task, name='task'),
+
+    path('api/tasks/', views.task_list_create, name='task-list-create'),
+    path('api/tasks/<int:pk>/', views.task_detail, name='task-detail'),
 ]

@@ -52,6 +52,7 @@ class Task(models.Model):
     virtual_tour = models.CharField(max_length=30)
     created_at = models.DateTimeField(default=timezone.now)
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    status = models.BooleanField(default=False)
 
 
 

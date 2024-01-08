@@ -17,7 +17,7 @@
 
 
   
-
+    <div class="overflow-y-scroll max-h-[500px] mx-5">
    
         <table class="table text-sm  w-[990px] ml-10 border-separate cursor-default ">
             <thead class="  ">
@@ -43,10 +43,20 @@
             </thead>
             <tbody>
                 {% for task in tasks %}
-                    <tr class="shadow-xl bg-white hover:bg-indigo-600 hover:text-white text-center">
+                    <tr class="shadow-xl bg-white hover:bg-indigo-600 hover:text-white text-center ">
                         <!-- <td class="text-xs">{{ task.created_at }}</td> -->
-                        
-                        <td class="p-2">{{ forloop.counter }}.</td>
+                        <td><form method="post" action="{% url 'update_task' task.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="{% if task.status %}bg-green-500{% else %}bg-indigo-600 hover:bg-indigo-200 hover:text-black{% endif%} p-1 rounded-lg text-xs text-white hover:bg-green-800">
+                                {% if task.status %}
+                                    Done
+                                    
+                                {% else %}
+                                    Open
+                                {% endif %}
+                            </button>
+                        </form></td>
+                        <!-- <td class="p-2">{{ forloop.counter }}.</td> -->
                         <td class="p-2">{{ task.project_name }}</td>
                         <td class="p-2">{{ task.name }}</td>
                         <td class="p-2">{{ task.description }}</td>
@@ -65,7 +75,7 @@
             </tbody>
 
         </table>
- 
+    </div>
    
     
     

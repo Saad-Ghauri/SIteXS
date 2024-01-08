@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
+    'myapp',
+    'rest_framework',
+    'corsheaders',
 ]
 
 
@@ -51,6 +53,9 @@ LOGIN_URL = 'login'
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
+
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,7 +66,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'Sitex.urls'
 
